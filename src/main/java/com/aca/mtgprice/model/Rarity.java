@@ -1,7 +1,7 @@
 package com.aca.mtgprice.model;
 
 public enum Rarity {
-    Common, Uncommon, Rare, Mythic;
+    C, UC, R, M;
 
     public static Rarity convertStringToRarity(String value) {
         Rarity myRarity = null;
