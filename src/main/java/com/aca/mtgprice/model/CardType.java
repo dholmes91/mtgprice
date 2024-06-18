@@ -1,9 +1,9 @@
 package com.aca.mtgprice.model;
 
 public enum CardType {
-    Land, Creature, Artifact, Enchantment, Planeswalker, Battle, Instant, Sorcery;
+    Land, Creature, Artifact, Enchantment, Planeswalker, Battle, Instant, Sorcery, Basic;
 
-    public static CardType convertStringToGenre(String value) {
+    public static CardType convertStringToType(String value) {
         CardType myType = null;
 
         for (CardType type : CardType.values()) {
