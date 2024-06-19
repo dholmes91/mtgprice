@@ -36,5 +36,9 @@ public class CardService {
         return cardDao.getCardsByCMC(manaValue);
     }
 
+    public List<Card> getCardsByColor(String colorValue) {
+        return cardDao.getCardsByColor(colorValue);
+    }
+
 
 }

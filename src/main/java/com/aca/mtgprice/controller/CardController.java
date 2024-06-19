@@ -47,4 +47,10 @@ public class CardController {
         return service.getCardsByCMC(manaValue);
 
     }
+
+    @RequestMapping(value = "/color/{colorValue}", method = RequestMethod.GET)
+    public List<Card> getCardsByColor(@PathVariable String colorValue) {
+        return service.getCardsByColor(colorValue);
+
+    }
 }

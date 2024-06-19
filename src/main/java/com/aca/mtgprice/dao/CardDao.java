@@ -9,6 +9,7 @@ import java.util.List;
 public interface CardDao {
 
      List<Card> getCards();
+
      List<Card> getCardsBySetCode(Code code);
 
      List<Card> getCardsByRarity(Rarity rarity);
@@ -18,5 +19,7 @@ public interface CardDao {
      List<Card> getCardsByName(String nameValue);
 
      List<Card> getCardsByCMC(Integer manaValue);
+
+     List<Card> getCardsByColor(String colorValue);
 
 }

@@ -9,6 +9,15 @@ public class Card {
     private double priceDiff;
     private Integer cardId;
     private Integer CMC;
+    private String color;
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
 
     public Integer getCMC() {
         return CMC;

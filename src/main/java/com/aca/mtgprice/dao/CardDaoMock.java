@@ -21,6 +21,7 @@ public class CardDaoMock implements CardDao {
         dillo.setCode(Code.OTJ);
         dillo.setCardId(1);
         dillo.setCMC(1);
+        dillo.setColor("W");
 
         Card murder = new Card();
         murder.setName("Murder");
@@ -30,6 +31,7 @@ public class CardDaoMock implements CardDao {
         murder.setCode(Code.MKM);
         murder.setCardId(2);
         murder.setCMC(3);
+        murder.setColor("B");
 
         Card spyglass = new Card();
         spyglass.setName("Sorcerous Spyglass");
@@ -39,6 +41,7 @@ public class CardDaoMock implements CardDao {
         spyglass.setCode(Code.LCI);
         spyglass.setCardId(3);
         spyglass.setCMC(2);
+        spyglass.setColor("");
 
         cards.add(dillo);
         cards.add(murder);
@@ -101,6 +104,17 @@ public class CardDaoMock implements CardDao {
         List<Card> myCards = new ArrayList<>();
         for (Card card : CardDaoMock.cards) {
             if (card.getCMC().intValue() == manaValue.intValue()) {
+                myCards.add(card);
+            }
+        }
+        return myCards;
+    }
+
+    @Override
+    public List<Card> getCardsByColor(String colorValue) {
+        List<Card> myCards = new ArrayList<>();
+        for (Card card : CardDaoMock.cards) {
+            if (card.getColor().toLowerCase().contains(colorValue.toLowerCase())) {
                 myCards.add(card);
             }
         }
