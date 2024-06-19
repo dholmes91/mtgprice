@@ -10,7 +10,7 @@ import java.util.List;
 
 public class CardDaoMock implements CardDao {
 
-    private static List<Card> cards = new ArrayList<>();
+    private static final List<Card> cards = new ArrayList<>();
 
     static {
         Card dillo = new Card();
@@ -19,6 +19,8 @@ public class CardDaoMock implements CardDao {
         dillo.setPrice(1.03);
         dillo.setType(Type.Creature);
         dillo.setCode(Code.OTJ);
+        dillo.setCardId(1);
+        dillo.setCMC(1);
 
         Card murder = new Card();
         murder.setName("Murder");
@@ -26,6 +28,8 @@ public class CardDaoMock implements CardDao {
         murder.setPrice(.23);
         murder.setType(Type.Instant);
         murder.setCode(Code.MKM);
+        murder.setCardId(2);
+        murder.setCMC(3);
 
         Card spyglass = new Card();
         spyglass.setName("Sorcerous Spyglass");
@@ -33,6 +37,8 @@ public class CardDaoMock implements CardDao {
         spyglass.setPrice(.65);
         spyglass.setType(Type.Artifact);
         spyglass.setCode(Code.LCI);
+        spyglass.setCardId(3);
+        spyglass.setCMC(2);
 
         cards.add(dillo);
         cards.add(murder);
@@ -43,8 +49,7 @@ public class CardDaoMock implements CardDao {
 
     @Override
     public List<Card> getCards() {
-        List<Card> myCards = new ArrayList<>(cards);
-        return myCards;
+        return new ArrayList<>(cards);
     }
 
     @Override
@@ -52,6 +57,50 @@ public class CardDaoMock implements CardDao {
         List<Card> myCards = new ArrayList<>();
         for (Card card : CardDaoMock.cards) {
             if (card.getCode().equals(code)) {
+                myCards.add(card);
+            }
+        }
+        return myCards;
+    }
+
+    @Override
+    public List<Card> getCardsByRarity(Rarity rarity) {
+        List<Card> myCards = new ArrayList<>();
+        for (Card card : CardDaoMock.cards) {
+            if (card.getRarity().equals(rarity)) {
+                myCards.add(card);
+            }
+        }
+        return myCards;
+    }
+
+    @Override
+    public List<Card> getCardsById(Integer cardId) {
+        List<Card> myCards = new ArrayList<>();
+        for (Card card : CardDaoMock.cards) {
+            if (card.getCardId().intValue() == cardId.intValue()) {
+                myCards.add(card);
+            }
+        }
+        return myCards;
+    }
+
+    @Override
+    public List<Card> getCardsByName(String nameValue) {
+        List<Card> myCards = new ArrayList<>();
+        for (Card card : CardDaoMock.cards) {
+            if (card.getName().toLowerCase().contains(nameValue.toLowerCase())) {
+                myCards.add(card);
+            }
+        }
+        return myCards;
+    }
+
+    @Override
+    public List<Card> getCardsByCMC(Integer manaValue) {
+        List<Card> myCards = new ArrayList<>();
+        for (Card card : CardDaoMock.cards) {
+            if (card.getCMC().intValue() == manaValue.intValue()) {
                 myCards.add(card);
             }
         }

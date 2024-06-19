@@ -20,7 +20,21 @@ public class CardService {
         return cardDao.getCardsBySetCode(code);
     }
 
-    public List<Card> getCardsByRarity(Rarity rarityValue) {
-        return null;
+    public List<Card> getCardsByRarity(Rarity rarity) {
+        return cardDao.getCardsByRarity(rarity);
     }
+
+    public List<Card> getCardsById(Integer cardId) {
+        return cardDao.getCardsById(cardId);
+    }
+
+    public List<Card> getCardsByName(String nameValue) {
+        return cardDao.getCardsByName(nameValue);
+    }
+
+    public List<Card> getCardsByCMC(Integer manaValue) {
+        return cardDao.getCardsByCMC(manaValue);
+    }
+
+
 }

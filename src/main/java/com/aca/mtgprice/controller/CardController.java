@@ -23,7 +23,7 @@ public class CardController {
 
     @RequestMapping(value = "/name/{nameValue}", method = RequestMethod.GET)
     public List<Card> getCardsByName(@PathVariable String nameValue) {
-        return service.getCards();
+        return service.getCardsByName(nameValue);
     }
 
     @RequestMapping(value = "/rarity/{rarityValue}", method = RequestMethod.GET)
@@ -36,4 +36,15 @@ public class CardController {
         return service.getCardsBySetCode(codeValue);
     }
 
+    @RequestMapping(value = "/id/{cardIdValue}", method = RequestMethod.GET)
+    public List<Card> getCardsById(@PathVariable Integer cardIdValue) {
+        return service.getCardsById(cardIdValue);
+
+    }
+
+    @RequestMapping(value = "/cmc/{manaValue}", method = RequestMethod.GET)
+    public List<Card> getCardsByCMC(@PathVariable Integer manaValue) {
+        return service.getCardsByCMC(manaValue);
+
+    }
 }
