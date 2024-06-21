@@ -1,6 +1,5 @@
 package com.aca.mtgprice.model;
 
-import java.util.List;
 
 public class Card {
     private String name;

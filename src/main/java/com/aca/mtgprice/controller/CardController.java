@@ -1,13 +1,18 @@
 package com.aca.mtgprice.controller;
 
+import java.util.List;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.aca.mtgprice.model.Card;
 import com.aca.mtgprice.model.Code;
 import com.aca.mtgprice.model.Rarity;
 import com.aca.mtgprice.model.Type;
 import com.aca.mtgprice.service.CardService;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "api/cards", produces = "application/json")
@@ -61,7 +66,7 @@ public class CardController {
 
     }
 
-    @RequestMapping(value = "/topmovers", method = RequestMethod.GET)
+    @RequestMapping(value = "/topMovers", method = RequestMethod.GET)
     public List<Card> getTopMovers() {
         return service.getTopMovers();
 

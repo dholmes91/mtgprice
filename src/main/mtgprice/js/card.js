@@ -1,16 +1,11 @@
 (function () {
-
     var mtgapp = angular.module('mtgapp', ['ngRoute']);
-    mtgapp.config(function ($routeProvider) {
 
+    mtgapp.config(function ($routeProvider) {
         $routeProvider
-            .when("/search", {
-                templateUrl: "search.html",
+            .when("/topmovers", {
+                templateUrl: "topMovers.html",
                 controller: "searchController"
-            })
-            .when("/create", {
-                templateUrl: "create.html",
-                controller: "createController"
             })
             .when("/stack", {
                 templateUrl: "stack.html"
@@ -21,13 +16,10 @@
             .when("/main", {
                 templateUrl: "main.html"
             })
-            // .when("/update/:movieId", {
-            //     templateUrl: "update.html",
-            //     controller: "updateController"
-            // })
-            .otherwise({
-                templateUrl: "main.html"
-            });
+            // .otherwise({
+            //     redirectTo: "/main"
+            // });
     });
+
 
 })();

@@ -8,17 +8,29 @@
 
         $scope.showSpinner = true;
 
-        // $scope.getAllMovies = function () {
-        //     $scope.showSpinner = true;
-        //     $http.get("http://localhost:8080/api/cards")
-        //         .then(function (response) {
-        //             $scope.movies = response.data;
-        //             console.log('number of movies: ' + $scope.movies.length);
-        //             $scope.showSpinner = false;
-        //         }, function (response) {
-        //             console.log('error http GET movies: ' + response.status);
-        //         });
-        // }
+        $scope.getAllCards = function () {
+            $scope.showSpinner = true;
+            $http.get("http://localhost:8080/api/cards")
+                .then(function (response) {
+                    $scope.cards = response.data;
+                    console.log('number of cards: ' + $scope.cards.length);
+                    $scope.showSpinner = false;
+                }, function (response) {
+                    console.log('error http GET cards: ' + response.status);
+                });
+        }
+
+        $scope.getTopMovers = function() {
+            $scope.showSpinner = true;
+            $http.get("http://localhost:8080/api/cards/topMovers")
+            .then(function (response) {
+                $scope.cards = response.data;
+                console.log('number of cards: ' + $scope.cards.length);
+                $scope.showSpinner = false;
+            }, function (response) {
+                console.log('error http GET cards: ' + response.status);
+            });
+        }
 
         // $scope.goToUpdateView = function (movieId) {
         //     console.log('go to update view: ' + movieId);
