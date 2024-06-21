@@ -47,17 +47,22 @@ public class CardDaoImpl implements CardDao {
                     "    AND cp1.vendor = 'tcgplayer' " +
                     "    AND cp1.price_type = 'retail_normal' " +
                     "    AND cp1.currency = 'USD' " +
-                    "    AND c.availability = 'paper' " +
                     "ORDER BY " +
                     "    price_difference DESC";
 
 
     private static final String SELECT_TOP_MOVERS =
-            "SELECT DISTINCT c.name AS card_name, " +
+            "SELECT c.name AS name, " +
+                    "c.id AS id, " +
+                    "c.rarity AS rarity, " +
                     "cp1.vendor AS vendor, " +
                     "cp1.price_type AS price_type, " +
                     "cp1.price_date AS price_date1, " +
                     "cp1.price AS price1, " +
+                    "c.colors AS colors, " +
+                    "c.type AS type, " +
+                    "c.manaValue AS manaValue, " +
+                    "c.setCode AS setCode, " +
                     "cp2.price_date AS price_date2, " +
                     "cp2.price AS price2, " +
                     "cp1.currency AS currency, " +
@@ -77,11 +82,19 @@ public class CardDaoImpl implements CardDao {
                     "AND cp1.currency = 'USD' " +
                     "ORDER BY price_difference DESC " +
                     "LIMIT 5 " +  // Top 5 movers
+
                     "UNION ALL " +
-                    "(SELECT DISTINCT c.name AS card_name, " +
+
+                    "SELECT c.name AS name, " +
+                    "c.rarity AS rarity, " +
+                    "c.id AS id, " +
                     "cp1.vendor AS vendor, " +
                     "cp1.price_type AS price_type, " +
                     "cp1.price_date AS price_date1, " +
+                    "c.colors AS colors, " +
+                    "c.type AS type, " +
+                    "c.manaValue AS manaValue, " +
+                    "c.setCode AS setCode, " +
                     "cp1.price AS price1, " +
                     "cp2.price_date AS price_date2, " +
                     "cp2.price AS price2, " +
@@ -93,15 +106,18 @@ public class CardDaoImpl implements CardDao {
                     "AND cp1.price_type = cp2.price_type " +
                     "AND cp1.currency = cp2.currency " +
                     "JOIN cardlegalities cl ON cp1.uuid = cl.uuid " +
-                    "JOIN cards c ON cp1.id = c.id " +
+                    "JOIN cards c ON cp1.uuid = c.uuid " +
                     "WHERE cp1.price_date = '2024-06-11' " +
                     "AND cp2.price_date = '2024-06-17' " +
                     "AND cl.standard = 'Legal' " +
                     "AND cp1.vendor = 'tcgplayer' " +
                     "AND cp1.price_type = 'retail_normal' " +
                     "AND cp1.currency = 'USD' " +
+                    "AND c.setCode IN ('MID', 'VOW', 'NEO', 'SNC', 'DMU', 'BRO', 'ONE', 'MOM', 'MAT', 'WOE', 'WOT', 'LCI', 'MKM', 'OTJ', 'BIG', 'OTP') " +
                     "ORDER BY price_difference ASC " +
-                    "LIMIT 5)";  // Bottom 5 movers
+                    "LIMIT 5" +
+                    ");";  // Bottom 5 movers
+
 
     private static final String SELECT_BY_SET =
             "SELECT " +
@@ -139,7 +155,6 @@ public class CardDaoImpl implements CardDao {
                     "    AND cp1.vendor = 'tcgplayer' " +
                     "    AND cp1.price_type = 'retail_normal' " +
                     "    AND cp1.currency = 'USD' " +
-                    "    AND c.availability = 'paper' " +
                     "    AND c.setCode = ? " +
                     "ORDER BY " +
                     "    price_difference DESC";
