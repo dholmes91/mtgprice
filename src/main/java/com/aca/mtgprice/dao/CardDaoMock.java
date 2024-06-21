@@ -15,8 +15,9 @@ public class CardDaoMock implements CardDao {
     static {
         Card dillo = new Card();
         dillo.setName("Armored Armadillo");
-        dillo.setRarity(Rarity.C);
-        dillo.setPrice(1.03);
+        dillo.setRarity(Rarity.Common);
+        dillo.setPrice1(1.03);
+        dillo.setPrice2(1.07);
         dillo.setType(Type.Creature);
         dillo.setCode(Code.OTJ);
         dillo.setCardId(1);
@@ -25,8 +26,9 @@ public class CardDaoMock implements CardDao {
 
         Card murder = new Card();
         murder.setName("Murder");
-        murder.setRarity(Rarity.C);
-        murder.setPrice(.23);
+        murder.setRarity(Rarity.Common);
+        murder.setPrice1(.23);
+        murder.setPrice2(.12);
         murder.setType(Type.Instant);
         murder.setCode(Code.MKM);
         murder.setCardId(2);
@@ -35,8 +37,9 @@ public class CardDaoMock implements CardDao {
 
         Card spyglass = new Card();
         spyglass.setName("Sorcerous Spyglass");
-        spyglass.setRarity(Rarity.UC);
-        spyglass.setPrice(.65);
+        spyglass.setRarity(Rarity.Uncommon);
+        spyglass.setPrice1(.65);
+        spyglass.setPrice2(.72);
         spyglass.setType(Type.Artifact);
         spyglass.setCode(Code.LCI);
         spyglass.setCardId(3);
@@ -53,6 +56,11 @@ public class CardDaoMock implements CardDao {
     @Override
     public List<Card> getCards() {
         return new ArrayList<>(cards);
+    }
+
+    @Override
+    public List<Card> getTopMovers() {
+        return List.of();
     }
 
     @Override
@@ -119,5 +127,10 @@ public class CardDaoMock implements CardDao {
             }
         }
         return myCards;
+    }
+
+    @Override
+    public List<Card> getCardsByType(Type type) {
+        return List.of();
     }
 }

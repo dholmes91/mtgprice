@@ -1,15 +1,19 @@
 package com.aca.mtgprice.model;
 
+import java.util.List;
+
 public class Card {
     private String name;
     private Type type;
     private Rarity rarity;
     private Code code;
-    private double price;
+    private double price1;
+    private double price2;
     private double priceDiff;
     private Integer cardId;
     private Integer CMC;
     private String color;
+
 
     public String getColor() {
         return color;
@@ -75,11 +79,19 @@ public class Card {
         this.code = code;
     }
 
-    public double getPrice() {
-        return price;
+    public double getPrice1() {
+        return price1;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setPrice1(double price1) {
+        this.price1 = price1;
+    }
+
+    public double getPrice2() {
+        return price2;
+    }
+
+    public void setPrice2(double price2) {
+        this.price2 = price2;
     }
 }

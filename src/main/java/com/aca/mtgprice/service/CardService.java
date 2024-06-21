@@ -3,14 +3,23 @@ package com.aca.mtgprice.service;
 import java.util.List;
 
 import com.aca.mtgprice.dao.CardDao;
-import com.aca.mtgprice.dao.CardDaoMock;
+import com.aca.mtgprice.dao.CardDaoImpl;
 import com.aca.mtgprice.model.Card;
 import com.aca.mtgprice.model.Code;
 import com.aca.mtgprice.model.Rarity;
+import com.aca.mtgprice.model.Type;
 
 public class CardService {
 
-    private CardDao cardDao = new CardDaoMock();
+    private CardDao cardDao = new CardDaoImpl();
+
+    public List<Card> getCardsByType(Type type) {
+        return cardDao.getCardsByType(type);
+    }
+
+    public List<Card> getTopMovers() {
+        return cardDao.getTopMovers();
+    }
 
     public List<Card> getCards() {
         return cardDao.getCards();

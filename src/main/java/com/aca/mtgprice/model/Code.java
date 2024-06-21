@@ -1,8 +1,7 @@
 package com.aca.mtgprice.model;
 
 public enum Code {
-    MID, VOW, NEO, SNC, DMU, BRO, ONE, MOM, MAT,
-    WOE, LCI, MKM, OTJ;
+    MID, VOW, NEO, SNC, DMU, BRO, ONE, MOM, MAT, WOE, WOT, LCI, MKM, OTJ, BIG, OTP;
 
     public static Code convertStringToSet(String value) {
         Code myCode = null;

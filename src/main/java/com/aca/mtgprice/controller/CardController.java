@@ -3,6 +3,7 @@ package com.aca.mtgprice.controller;
 import com.aca.mtgprice.model.Card;
 import com.aca.mtgprice.model.Code;
 import com.aca.mtgprice.model.Rarity;
+import com.aca.mtgprice.model.Type;
 import com.aca.mtgprice.service.CardService;
 import org.springframework.web.bind.annotation.*;
 
@@ -51,6 +52,18 @@ public class CardController {
     @RequestMapping(value = "/color/{colorValue}", method = RequestMethod.GET)
     public List<Card> getCardsByColor(@PathVariable String colorValue) {
         return service.getCardsByColor(colorValue);
+
+    }
+
+    @RequestMapping(value = "/type/{typeValue}", method = RequestMethod.GET)
+    public List<Card> getCardsByType(@PathVariable Type typeValue) {
+        return service.getCardsByType(typeValue);
+
+    }
+
+    @RequestMapping(value = "/topmovers", method = RequestMethod.GET)
+    public List<Card> getTopMovers() {
+        return service.getTopMovers();
 
     }
 }
