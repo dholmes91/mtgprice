@@ -11,157 +11,204 @@ import java.util.ArrayList;
 
 public class CardDaoImpl implements CardDao {
 
-    private static final String SELECT_ALL_CARDS =
-            "SELECT " +
-                    "c.name AS name, " +
-                    "c.id AS id, " +
-                    "c.rarity AS rarity, " +
-                    "c.colors AS colors, " +
-                    "c.type AS type, " +
-                    "c.manaValue AS manaValue, " +
-                    "c.setCode AS setCode, " +
-                    "cp1.vendor AS vendor, " +
-                    "cp1.price_type AS price_type, " +
-                    "cp1.price_date AS price_date1, " +
-                    "cp1.price AS price1, " +
-                    "cp2.price_date AS price_date2, " +
-                    "cp2.price AS price2, " +
-                    "cp1.currency AS currency, " +
-                    "cp2.price - cp1.price AS price_difference " +
-                    "FROM " +
-                    "    cards c " +
-                    "JOIN " +
-                    "    cardprices cp1 ON c.uuid = cp1.uuid " +
-                    "JOIN " +
-                    "    cardprices cp2 ON cp1.uuid = cp2.uuid " +
-                    "    AND cp1.vendor = cp2.vendor " +
-                    "    AND cp1.price_type = cp2.price_type " +
-                    "    AND cp1.currency = cp2.currency " +
-                    "JOIN " +
-                    "    cardlegalities cl ON cp1.uuid = cl.uuid " +
-                    "WHERE " +
-                    "setCode IN ('MID', 'VOW', 'NEO', 'SNC', 'DMU', 'BRO', 'ONE', 'MOM', 'MAT', 'WOE', 'WOT', 'LCI', 'MKM', 'OTJ', 'BIG', 'OTP') " +
-                    "    AND cp1.price_date = '2024-06-11' " +
-                    "    AND cp2.price_date = '2024-06-17' " +
-                    "    AND cl.standard = 'Legal' " +
-                    "    AND cp1.vendor = 'tcgplayer' " +
-                    "    AND cp1.price_type = 'retail_normal' " +
-                    "    AND cp1.currency = 'USD' " +
-                    "ORDER BY " +
-                    "    price_difference DESC";
-
+    private static final String SELECT_ALL_CARDS = "SELECT " +
+            "c.name AS name, " +
+            "c.id AS id, " +
+            "c.rarity AS rarity, " +
+            "c.colors AS colors, " +
+            "c.type AS type, " +
+            "c.manaValue AS manaValue, " +
+            "c.setCode AS setCode, " +
+            "cp1.vendor AS vendor, " +
+            "cp1.price_type AS price_type, " +
+            "cp1.price_date AS price_date1, " +
+            "cp1.price AS price1, " +
+            "cp2.price_date AS price_date2, " +
+            "cp2.price AS price2, " +
+            "cp1.currency AS currency, " +
+            "cp2.price - cp1.price AS price_difference " +
+            "FROM " +
+            "    cards c " +
+            "JOIN " +
+            "    cardprices cp1 ON c.uuid = cp1.uuid " +
+            "JOIN " +
+            "    cardprices cp2 ON cp1.uuid = cp2.uuid " +
+            "    AND cp1.vendor = cp2.vendor " +
+            "    AND cp1.price_type = cp2.price_type " +
+            "    AND cp1.currency = cp2.currency " +
+            "JOIN " +
+            "    cardlegalities cl ON cp1.uuid = cl.uuid " +
+            "WHERE " +
+            "setCode IN ('MID', 'VOW', 'NEO', 'SNC', 'DMU', 'BRO', 'ONE', 'MOM', 'MAT', 'WOE', 'WOT', 'LCI', 'MKM', 'OTJ', 'BIG', 'OTP') "
+            +
+            "    AND cp1.price_date = '2024-06-11' " +
+            "    AND cp2.price_date = '2024-06-17' " +
+            "    AND cl.standard = 'Legal' " +
+            "    AND cp1.vendor = 'tcgplayer' " +
+            "    AND cp1.price_type = 'retail_normal' " +
+            "    AND cp1.currency = 'USD' " +
+            "ORDER BY " +
+            "    price_difference DESC";
 
     private static final String SELECT_TOP_MOVERS =
-            "SELECT c.name AS name, " +
-                    "c.id AS id, " +
-                    "c.rarity AS rarity, " +
-                    "cp1.vendor AS vendor, " +
-                    "cp1.price_type AS price_type, " +
-                    "cp1.price_date AS price_date1, " +
-                    "cp1.price AS price1, " +
-                    "c.colors AS colors, " +
-                    "c.type AS type, " +
-                    "c.manaValue AS manaValue, " +
-                    "c.setCode AS setCode, " +
-                    "cp2.price_date AS price_date2, " +
-                    "cp2.price AS price2, " +
-                    "cp1.currency AS currency, " +
-                    "cp2.price - cp1.price AS price_difference " +
-                    "FROM cardprices cp1 " +
-                    "JOIN cardprices cp2 ON cp1.uuid = cp2.uuid " +
-                    "AND cp1.vendor = cp2.vendor " +
-                    "AND cp1.price_type = cp2.price_type " +
-                    "AND cp1.currency = cp2.currency " +
-                    "JOIN cardlegalities cl ON cp1.uuid = cl.uuid " +
-                    "JOIN cards c ON cp1.uuid = c.uuid " +
-                    "WHERE cp1.price_date = '2024-06-11' " +
-                    "AND cp2.price_date = '2024-06-17' " +
-                    "AND cl.standard = 'Legal' " +
-                    "AND cp1.vendor = 'tcgplayer' " +
-                    "AND cp1.price_type = 'retail_normal' " +
-                    "AND cp1.currency = 'USD' " +
-                    "ORDER BY price_difference DESC " +
-                    "LIMIT 5 " +  // Top 5 movers
 
+            "(" +
+                    "    SELECT " +
+                    "        DISTINCT c.name AS name, " +
+                    "        c.id AS id, " +
+                    "        c.rarity AS rarity, " +
+                    "        c.colors AS colors, " +
+                    "        c.type AS type, " +
+                    "        c.manaValue AS manaValue, " +
+                    "        c.setCode AS setCode, " +
+                    "        cp1.vendor AS vendor, " +
+                    "        cp1.price_type AS price_type, " +
+                    "        cp1.price_date AS price_date1, " +
+                    "        cp1.price AS price1, " +
+                    "        cp2.price_date AS price_date2, " +
+                    "        cp2.price AS price2, " +
+                    "        cp1.currency AS currency, " +
+                    "        cp2.price - cp1.price AS price_difference " +
+                    "    FROM " +
+                    "        cardprices cp1 " +
+                    "    JOIN " +
+                    "        cardprices cp2 ON cp1.uuid = cp2.uuid " +
+                    "            AND cp1.vendor = cp2.vendor " +
+                    "            AND cp1.price_type = cp2.price_type " +
+                    "            AND cp1.currency = cp2.currency " +
+                    "    JOIN " +
+                    "        cardlegalities cl ON cp1.uuid = cl.uuid " +
+                    "    JOIN " +
+                    "        cards c ON cp1.uuid = c.uuid " +
+                    "    WHERE " +
+                    "        cp1.price_date = '2024-06-11' " +
+                    "        AND cp2.price_date = '2024-06-17' " +
+                    "        AND cl.standard = 'Legal' " +
+                    "        AND cp1.vendor = 'tcgplayer' " +
+                    "        AND cp1.price_type = 'retail_normal' " +
+                    "        AND cp1.currency = 'USD' " +
+                    "    ORDER BY " +
+                    "        price_difference DESC " +
+                    "    LIMIT 5 " + // Top 5 movers
+                    ") " +
                     "UNION ALL " +
+                    "(" +
+                    "    SELECT " +
+                    "        DISTINCT c.name AS name, " +
+                    "        c.id AS id, " +
+                    "        c.rarity AS rarity, " +
+                    "        c.colors AS colors, " +
+                    "        c.type AS type, " +
+                    "        c.manaValue AS manaValue, " +
+                    "        c.setCode AS setCode, " +
+                    "        cp1.vendor AS vendor, " +
+                    "        cp1.price_type AS price_type, " +
+                    "        cp1.price_date AS price_date1, " +
+                    "        cp1.price AS price1, " +
+                    "        cp2.price_date AS price_date2, " +
+                    "        cp2.price AS price2, " +
+                    "        cp1.currency AS currency, " +
+                    "        cp2.price - cp1.price AS price_difference " +
+                    "    FROM " +
+                    "        cardprices cp1 " +
+                    "    JOIN " +
+                    "        cardprices cp2 ON cp1.uuid = cp2.uuid " +
+                    "            AND cp1.vendor = cp2.vendor " +
+                    "            AND cp1.price_type = cp2.price_type " +
+                    "            AND cp1.currency = cp1.currency " +
+                    "    JOIN " +
+                    "        cardlegalities cl ON cp1.uuid = cl.uuid " +
+                    "    JOIN " +
+                    "        cards c ON cp1.uuid = c.uuid " +
+                    "    WHERE " +
+                    "        cp1.price_date = '2024-06-11' " +
+                    "        AND cp2.price_date = '2024-06-17' " +
+                    "        AND cl.standard = 'Legal' " +
+                    "        AND cp1.vendor = 'tcgplayer' " +
+                    "        AND cp1.price_type = 'retail_normal' " +
+                    "        AND cp1.currency = 'USD' " +
+                    "    ORDER BY " +
+                    "        price_difference ASC " +
+                    "    LIMIT 5 " + // Bottom 5 movers
+                    ");";
 
-                    "SELECT c.name AS name, " +
-                    "c.rarity AS rarity, " +
-                    "c.id AS id, " +
-                    "cp1.vendor AS vendor, " +
-                    "cp1.price_type AS price_type, " +
-                    "cp1.price_date AS price_date1, " +
-                    "c.colors AS colors, " +
-                    "c.type AS type, " +
-                    "c.manaValue AS manaValue, " +
-                    "c.setCode AS setCode, " +
-                    "cp1.price AS price1, " +
-                    "cp2.price_date AS price_date2, " +
-                    "cp2.price AS price2, " +
-                    "cp1.currency AS currency, " +
-                    "cp2.price - cp1.price AS price_difference " +
-                    "FROM cardprices cp1 " +
-                    "JOIN cardprices cp2 ON cp1.uuid = cp2.uuid " +
-                    "AND cp1.vendor = cp2.vendor " +
-                    "AND cp1.price_type = cp2.price_type " +
-                    "AND cp1.currency = cp2.currency " +
-                    "JOIN cardlegalities cl ON cp1.uuid = cl.uuid " +
-                    "JOIN cards c ON cp1.uuid = c.uuid " +
-                    "WHERE cp1.price_date = '2024-06-11' " +
-                    "AND cp2.price_date = '2024-06-17' " +
-                    "AND cl.standard = 'Legal' " +
-                    "AND cp1.vendor = 'tcgplayer' " +
-                    "AND cp1.price_type = 'retail_normal' " +
-                    "AND cp1.currency = 'USD' " +
-                    "AND c.setCode IN ('MID', 'VOW', 'NEO', 'SNC', 'DMU', 'BRO', 'ONE', 'MOM', 'MAT', 'WOE', 'WOT', 'LCI', 'MKM', 'OTJ', 'BIG', 'OTP') " +
-                    "ORDER BY price_difference ASC " +
-                    "LIMIT 5" +
-                    ");";  // Bottom 5 movers
+    private static final String SELECT_BY_SET = "SELECT " +
+            "    DISTINCT c.name AS name, " +
+            "    c.id AS id, " +
+            "    c.rarity AS rarity, " +
+            "    c.colors AS colors, " +
+            "    c.type AS type, " +
+            "    c.manaValue AS manaValue, " +
+            "    c.setCode AS setCode, " +
+            "    cp1.vendor AS vendor, " +
+            "    cp1.price_type AS price_type, " +
+            "    cp1.price_date AS price_date1, " +
+            "    cp1.price AS price1, " +
+            "    cp2.price_date AS price_date2, " +
+            "    cp2.price AS price2, " +
+            "    cp1.currency AS currency, " +
+            "    cp2.price - cp1.price AS price_difference " +
+            "FROM " +
+            "    cards c " +
+            "JOIN " +
+            "    cardprices cp1 ON c.uuid = cp1.uuid " +
+            "JOIN " +
+            "    cardprices cp2 ON cp1.uuid = cp2.uuid " +
+            "    AND cp1.vendor = cp2.vendor " +
+            "    AND cp1.price_type = cp2.price_type " +
+            "    AND cp1.currency = cp2.currency " +
+            "JOIN " +
+            "    cardlegalities cl ON cp1.uuid = cl.uuid " +
+            "WHERE " +
+            "setCode IN ('MID', 'VOW', 'NEO', 'SNC', 'DMU', 'BRO', 'ONE', 'MOM', 'MAT', 'WOE', 'WOT', 'LCI', 'MKM', 'OTJ', 'BIG', 'OTP') "
+            +
+            "    AND cp1.price_date = '2024-06-11' " +
+            "    AND cp2.price_date = '2024-06-17' " +
+            "    AND cl.standard = 'Legal' " +
+            "    AND cp1.vendor = 'tcgplayer' " +
+            "    AND cp1.price_type = 'retail_normal' " +
+            "    AND cp1.currency = 'USD' " +
+            "    AND c.setCode = ? " +
+            "ORDER BY " +
+            "    price_difference DESC";
 
-
-    private static final String SELECT_BY_SET =
-            "SELECT " +
-                    "    DISTINCT c.name AS name, " +
-                    "    c.id AS id, " +
-                    "    c.rarity AS rarity, " +
-                    "    c.colors AS colors, " +
-                    "    c.type AS type, " +
-                    "    c.manaValue AS manaValue, " +
-                    "    c.setCode AS setCode, " +
-                    "    cp1.vendor AS vendor, " +
-                    "    cp1.price_type AS price_type, " +
-                    "    cp1.price_date AS price_date1, " +
-                    "    cp1.price AS price1, " +
-                    "    cp2.price_date AS price_date2, " +
-                    "    cp2.price AS price2, " +
-                    "    cp1.currency AS currency, " +
-                    "    cp2.price - cp1.price AS price_difference " +
-                    "FROM " +
-                    "    cards c " +
-                    "JOIN " +
-                    "    cardprices cp1 ON c.uuid = cp1.uuid " +
-                    "JOIN " +
-                    "    cardprices cp2 ON cp1.uuid = cp2.uuid " +
-                    "    AND cp1.vendor = cp2.vendor " +
-                    "    AND cp1.price_type = cp2.price_type " +
-                    "    AND cp1.currency = cp2.currency " +
-                    "JOIN " +
-                    "    cardlegalities cl ON cp1.uuid = cl.uuid " +
-                    "WHERE " +
-                    "setCode IN ('MID', 'VOW', 'NEO', 'SNC', 'DMU', 'BRO', 'ONE', 'MOM', 'MAT', 'WOE', 'WOT', 'LCI', 'MKM', 'OTJ', 'BIG', 'OTP') " +
-                    "    AND cp1.price_date = '2024-06-11' " +
-                    "    AND cp2.price_date = '2024-06-17' " +
-                    "    AND cl.standard = 'Legal' " +
-                    "    AND cp1.vendor = 'tcgplayer' " +
-                    "    AND cp1.price_type = 'retail_normal' " +
-                    "    AND cp1.currency = 'USD' " +
-                    "    AND c.setCode = ? " +
-                    "ORDER BY " +
-                    "    price_difference DESC";
-
-
-
-
+    private static final String selectByName = "SELECT " +
+            "c.name AS name, " +
+            "c.id AS id, " +
+            "c.rarity AS rarity, " +
+            "c.colors AS colors, " +
+            "c.type AS type, " +
+            "c.manaValue AS manaValue, " +
+            "c.setCode AS setCode, " +
+            "cp1.vendor AS vendor, " +
+            "cp1.price_type AS price_type, " +
+            "cp1.price_date AS price_date1, " +
+            "cp1.price AS price1, " +
+            "cp2.price_date AS price_date2, " +
+            "cp2.price AS price2, " +
+            "cp1.currency AS currency, " +
+            "cp2.price - cp1.price AS price_difference " +
+            "FROM " +
+            "    cards c " +
+            "JOIN " +
+            "    cardprices cp1 ON c.uuid = cp1.uuid " +
+            "JOIN " +
+            "    cardprices cp2 ON cp1.uuid = cp2.uuid " +
+            "    AND cp1.vendor = cp2.vendor " +
+            "    AND cp1.price_type = cp2.price_type " +
+            "    AND cp1.currency = cp2.currency " +
+            "JOIN " +
+            "    cardlegalities cl ON cp1.uuid = cl.uuid " +
+            "WHERE " +
+            "setCode IN ('MID', 'VOW', 'NEO', 'SNC', 'DMU', 'BRO', 'ONE', 'MOM', 'MAT', 'WOE', 'WOT', 'LCI', 'MKM', 'OTJ', 'BIG', 'OTP') "
+            +
+            "    AND cp1.price_date = '2024-06-11' " +
+            "    AND cp2.price_date = '2024-06-17' " +
+            "    AND cl.standard = 'Legal' " +
+            "    AND cp1.vendor = 'tcgplayer' " +
+            "    AND cp1.price_type = 'retail_normal' " +
+            "    AND cp1.currency = 'USD' " +
+            "   AND c.name LIKE ? ";
 
     @Override
     public List<Card> getCards() {
@@ -178,7 +225,6 @@ public class CardDaoImpl implements CardDao {
         return myCards;
     }
 
-
     @Override
     public List<Card> getTopMovers() {
         List<Card> myCards = new ArrayList<>();
@@ -190,7 +236,6 @@ public class CardDaoImpl implements CardDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
 
         return myCards;
     }
@@ -241,9 +286,12 @@ public class CardDaoImpl implements CardDao {
             e.printStackTrace();
         } finally {
             try {
-                if (result != null) result.close();
-                if (statement != null) statement.close();
-                if (conn != null) conn.close();
+                if (result != null)
+                    result.close();
+                if (statement != null)
+                    statement.close();
+                if (conn != null)
+                    conn.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -251,7 +299,6 @@ public class CardDaoImpl implements CardDao {
 
         return myCards;
     }
-
 
     @Override
     public List<Card> getCardsByRarity(Rarity rarity) {
@@ -265,7 +312,25 @@ public class CardDaoImpl implements CardDao {
 
     @Override
     public List<Card> getCardsByName(String nameValue) {
-        return List.of();
+        List<Card> myCards = new ArrayList<>();
+
+        try (Connection conn = MariaDbUtil.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(selectByName)) {
+
+            // Set the parameter for the LIKE query
+            String nameWrap = "%" + nameValue + "%";
+            pstmt.setString(1, nameWrap);
+
+            try (ResultSet result = pstmt.executeQuery()) {
+                myCards = makeCard(result);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return myCards;
     }
 
     @Override
