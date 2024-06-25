@@ -1,47 +1,66 @@
-<div class="container">
-    <h2>Top Movers</h2>
-    <p>Content for the Top Movers page goes here.</p>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <!-- Bootstrap JS and dependencies (jQuery and Popper.js) -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
 
+    <title>M:TG Standard Hotlist - Top Movers</title>
 
-<!-- <div class="card mt-3">
-    <div class="card-header bg-info">
-        <h4>Card Search</h4>
-        <span class="float-right">
-            Search: <input type="text" maxlength="15" ng-model="searchValue">
-        </span>
+    <style>
+        body {
+            background-color: #343a40;
+            color: #ffffff;
+        }
+    </style>
+</head>
+
+<body class="bg-secondary">
+
+    <div class="card mt-3 bg-light">
+        <div class="card-header bg-info">
+            <h4 class="text-white">Top 10 Movers</h4>
+        </div>
+        <div class="card-body">
+            <table class="table table-hover table-dark table-striped">
+                <thead class="text-light">
+                    <tr>
+                        <th>Name</a></th>
+                        <th>Set</a></th>
+                        <th>Rarity</a></th>
+                        <th>Type</a></th>
+                        <th>Price</a></th>
+                        <th>Price Movement</a></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="card in cards" ng-class="getPriceDiffClass(card.priceDiff)">
+                        <td class="font-weight-bold">{{card.name}}</td>
+                        <td>{{card.code}}</td>
+                        <td>{{card.rarity}}</td>
+                        <td>{{card.type}}</td>
+                        <td>{{card.price2}}</td>
+                        <td>${{card.priceDiff | number: '2'}}</td>
+                    </tr>
+                    <tr ng-show=" showSpinner">
+                        <td colspan="6" class="text-center">
+                            <div class="spinner-border text-info" style="width: 3rem; height: 3rem;"></div>
+                            <p class="text-info mt-2">Loading top movers...</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
     </div>
-    <div class="card-body">
-        <table class="table table-hover">
-            <thead class="thead-light">
-                <tr>
-                    <th>Name</th>
-                    <th>Set</th>
-                    <th>Rarity</th>
-                    <th>Type</th>
-                    <th>Price</th>
-                    <th>Price Movement</th>
-                </tr>
-            </thead>
-            <tbody ng-show="!showSpinner">
-                <tr ng-repeat="card in cards | filter:searchValue" ng-click="goToSearchView(card.cardId)">
-                    <td>{{card.name}}</td>
-                    <td>{{card.code}}</td>
-                    <td>{{card.rarity}}</td>
-                    <td>{{card.type}}</td>
-                    <td>{{card.price2}}</td>
-                    <td>{{card.priceDiff}}</td>
-                </tr>
-            </tbody>
-            <div ng-show="showSpinner" class="text-center pt-4">
-                <div class="spinner-border" style="width: 3rem; height: 3rem;"></div>
-                <br>
-                <p>Loading search results...</p>
-            </div>
-        </table>
-    </div>
-    <div class="card-footer bg-info">
-        Please select a movie for update/delete
-    </div>
-</div> -->
+
+</body>
+
+</html>

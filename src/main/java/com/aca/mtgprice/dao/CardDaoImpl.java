@@ -26,9 +26,12 @@ public class CardDaoImpl implements CardDao {
             "cp2.price_date AS price_date2, " +
             "cp2.price AS price2, " +
             "cp1.currency AS currency, " +
-            "cp2.price - cp1.price AS price_difference " +
+            "cp2.price - cp1.price AS price_difference, " +
+            "cpu.tcgplayer AS purchase_url " +
             "FROM " +
             "    cards c " +
+            "JOIN " +
+            "cardpurchaseurls cpu ON c.id = cpu.id " +
             "JOIN " +
             "    cardprices cp1 ON c.uuid = cp1.uuid " +
             "JOIN " +
@@ -59,6 +62,7 @@ public class CardDaoImpl implements CardDao {
                     "        c.rarity AS rarity, " +
                     "        c.colors AS colors, " +
                     "        c.type AS type, " +
+                    "       c.setCode AS setCode, " +
                     "        c.manaValue AS manaValue, " +
                     "        c.setCode AS setCode, " +
                     "        cp1.vendor AS vendor, " +
@@ -86,6 +90,8 @@ public class CardDaoImpl implements CardDao {
                     "        AND cl.standard = 'Legal' " +
                     "        AND cp1.vendor = 'tcgplayer' " +
                     "        AND cp1.price_type = 'retail_normal' " +
+                    "        AND setCode IN ('MID', 'VOW', 'NEO', 'SNC', 'DMU', 'BRO', 'ONE', 'MOM', 'MAT', 'WOE', 'WOT', 'LCI', 'MKM', 'OTJ', 'BIG', 'OTP') "
+                    +
                     "        AND cp1.currency = 'USD' " +
                     "    ORDER BY " +
                     "        price_difference DESC " +
@@ -99,6 +105,7 @@ public class CardDaoImpl implements CardDao {
                     "        c.rarity AS rarity, " +
                     "        c.colors AS colors, " +
                     "        c.type AS type, " +
+                    "       c.setCode AS setCode, " +
                     "        c.manaValue AS manaValue, " +
                     "        c.setCode AS setCode, " +
                     "        cp1.vendor AS vendor, " +
@@ -126,6 +133,8 @@ public class CardDaoImpl implements CardDao {
                     "        AND cl.standard = 'Legal' " +
                     "        AND cp1.vendor = 'tcgplayer' " +
                     "        AND cp1.price_type = 'retail_normal' " +
+                    "AND setCode IN ('MID', 'VOW', 'NEO', 'SNC', 'DMU', 'BRO', 'ONE', 'MOM', 'MAT', 'WOE', 'WOT', 'LCI', 'MKM', 'OTJ', 'BIG', 'OTP') "
+                    +
                     "        AND cp1.currency = 'USD' " +
                     "    ORDER BY " +
                     "        price_difference ASC " +
@@ -210,13 +219,45 @@ public class CardDaoImpl implements CardDao {
             "    AND cp1.currency = 'USD' " +
             "   AND c.name LIKE ? ";
 
+    private static final String selectById = "SELECT " +
+            "c.name AS name, " +
+            "c.id AS id, " +
+            "c.rarity AS rarity, " +
+            "c.colors AS colors, " +
+            "c.type AS type, " +
+            "c.manaValue AS manaValue, " +
+            "c.setCode AS setCode, " +
+            "cp1.vendor AS vendor, " +
+            "cp1.price_type AS price_type, " +
+            "cp1.price_date AS price_date1, " +
+            "cp1.price AS price1, " +
+            "cp2.price_date AS price_date2, " +
+            "cp2.price AS price2, " +
+            "cp1.currency AS currency, " +
+            "cp2.price - cp1.price AS price_difference " +
+            "FROM " +
+            "    cards c " +
+            "JOIN " +
+            "cardpurchaseurls cpu ON c.id = cpu.id " +
+            "JOIN " +
+            "    cardprices cp1 ON c.uuid = cp1.uuid " +
+            "JOIN " +
+            "    cardprices cp2 ON cp1.uuid = cp2.uuid " +
+            "    AND cp1.vendor = cp2.vendor " +
+            "    AND cp1.price_type = cp2.price_type " +
+            "    AND cp1.currency = cp2.currency " +
+            "JOIN " +
+            "    cardlegalities cl ON cp1.uuid = cl.uuid " +
+            "WHERE " +
+            "    c.id = ?";
+
     @Override
     public List<Card> getCards() {
         List<Card> myCards = new ArrayList<>();
 
         try (Connection conn = MariaDbUtil.getConnection();
-             Statement statement = conn.createStatement();
-             ResultSet result = statement.executeQuery(SELECT_ALL_CARDS)) {
+                Statement statement = conn.createStatement();
+                ResultSet result = statement.executeQuery(SELECT_ALL_CARDS)) {
             myCards = makeCard(result);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -230,8 +271,8 @@ public class CardDaoImpl implements CardDao {
         List<Card> myCards = new ArrayList<>();
 
         try (Connection conn = MariaDbUtil.getConnection();
-             Statement statement = conn.createStatement();
-             ResultSet result = statement.executeQuery(SELECT_TOP_MOVERS)) {
+                Statement statement = conn.createStatement();
+                ResultSet result = statement.executeQuery(SELECT_TOP_MOVERS)) {
             myCards = makeCard(result);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -306,8 +347,24 @@ public class CardDaoImpl implements CardDao {
     }
 
     @Override
-    public List<Card> getCardsById(Integer cardId) {
-        return List.of();
+    public List<Card> getCardsById(Integer cardIdValue) {
+        List<Card> myCards = new ArrayList<>();
+
+        try (Connection conn = MariaDbUtil.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(selectById)) {
+
+            pstmt.setInt(1, cardIdValue);
+
+            try (ResultSet result = pstmt.executeQuery()) {
+                myCards = makeCard(result);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return myCards;
     }
 
     @Override
@@ -315,9 +372,8 @@ public class CardDaoImpl implements CardDao {
         List<Card> myCards = new ArrayList<>();
 
         try (Connection conn = MariaDbUtil.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(selectByName)) {
+                PreparedStatement pstmt = conn.prepareStatement(selectByName)) {
 
-            // Set the parameter for the LIKE query
             String nameWrap = "%" + nameValue + "%";
             pstmt.setString(1, nameWrap);
 
@@ -332,6 +388,23 @@ public class CardDaoImpl implements CardDao {
 
         return myCards;
     }
+
+    // @Override
+    // public String getCardPurchaseUrl(Integer id) {
+    // String purchaseUrl = null;
+    // try (Connection conn = MariaDbUtil.getConnection();
+    // PreparedStatement stmt = conn.prepareStatement(selectByPurchaseUrl)) {
+    // stmt.setLong(1, id);
+    // try (ResultSet rs = stmt.executeQuery()) {
+    // if (rs.next()) {
+    // purchaseUrl = rs.getString("tcgplayer");
+    // }
+    // }
+    // } catch (SQLException e) {
+    // // Handle SQLException
+    // }
+    // return purchaseUrl;
+    // }
 
     @Override
     public List<Card> getCardsByCMC(Integer manaValue) {

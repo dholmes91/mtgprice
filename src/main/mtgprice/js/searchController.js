@@ -1,12 +1,23 @@
-
 (function () {
-
-
     var mtgapp = angular.module('mtgapp');
 
-    mtgapp.controller('searchController', function ($scope, $http, $location) {
+    mtgapp.controller('searchController', function ($scope, $http) {
 
         $scope.showSpinner = true;
+        $scope.cards = [];
+        $scope.sortField = '';
+        $scope.reverse = false;
+        $scope.watchList = localStorage.getItem('watchlist');
+        $scope.watchList = $scope.watchList ? new Set(JSON.parse($scope.watchList)) : new Set();
+
+        $scope.sortBy = function (field) {
+            if ($scope.sortField === field) {
+                $scope.reverse = !$scope.reverse;
+            } else {
+                $scope.sortField = field;
+                $scope.reverse = false;
+            }
+        };
 
         $scope.getAllCards = function () {
             $scope.showSpinner = true;
@@ -17,71 +28,97 @@
                     $scope.showSpinner = false;
                 }, function (response) {
                     console.log('error http GET cards: ' + response.status);
+                    $scope.showSpinner = false;
                 });
-        }
+        };
 
-        $scope.getTopMovers = function() {
+        $scope.getCardsByName = function (name) {
+            if (!name) {
+                console.log('error: no card name provided');
+                return;
+            }
             $scope.showSpinner = true;
+            $http.get(`http://localhost:8080/api/cards/name/${name}`)
+                .then(function (response) {
+                    var cards = response.data;
+                    if (cards.length > 0) {
+                        $scope.cards = cards;
+                    } else {
+                        $scope.cards = [];
+                        console.log('error: no cards found');
+                    }
+                    $scope.showSpinner = false;
+                }, function (response) {
+                    console.log('error http GET cards by name: ' + response.status);
+                    $scope.showSpinner = false;
+                });
+        };
+
+        $scope.getCardsById = function (cardId) {
+            if (!cardId) {
+                console.log('error: no ID provided');
+                return;
+            }
+            $scope.showSpinner = true;
+            $http.get(`http://localhost:8080/api/cards/id/${cardIdValue}`)
+                .then(function (response) {
+                    var cards = response.data;
+                    if (cards.length > 0) {
+                        $scope.cards = cards;
+                    } else {
+                        $scope.cards = [];
+                        console.log('error: no cards found');
+                    }
+                    $scope.showSpinner = false;
+                }, function (response) {
+                    console.log('error http GET cards by id: ' + response.status);
+                    $scope.showSpinner = false;
+                });
+        };
+
+        $scope.getTopMovers = function () {
             $http.get("http://localhost:8080/api/cards/topMovers")
-            .then(function (response) {
-                $scope.cards = response.data;
-                console.log('number of cards: ' + $scope.cards.length);
-                $scope.showSpinner = false;
-            }, function (response) {
-                console.log('error http GET cards: ' + response.status);
-            });
-        }
+                .then(function (response) {
+                    $scope.cards = response.data;
+                    console.log('number of top movers: ' + $scope.cards.length);
+                    $scope.showSpinner = false;
+                }, function (response) {
+                    console.log('error http GET top movers: ' + response.status);
+                    $scope.showSpinner = false;
+                });
+        };
 
-        // $scope.goToUpdateView = function (movieId) {
-        //     console.log('go to update view: ' + movieId);
-        //     $location.path('/update/' + movieId)
-        // }
+        $scope.addToWatchList =
+            function (cardId) {
 
-        // $scope.getAllMovies();
+
+                // local storage
+                $scope.watchList.add(cardId);
+
+                localStorage.setItem(
+                    'watchlist', JSON.stringify($scope.watchList)
+                );
+                console.log($scope.watchList);
+            }
+
+        $scope.getTopMovers();
+
+        $scope.getPriceDiffClass = function (priceDiff) {
+            return {
+                'text-success': priceDiff > 0,
+                'text-danger': priceDiff < 0
+            };
+        };
+
+        // $scope.getPriceDiffIndicator = function (priceDiff) {
+        //     if (priceDiff > 0) {
+        //         return priceDiff + ' &#9650;'; // Up arrow Unicode
+        //     } else if (priceDiff < 0) {
+        //         return priceDiff + ' &#9660;'; // Down arrow Unicode
+        //     } else {
+        //         return priceDiff;
+        //     }
+        // };
+
     });
-})()
-
-
-
-
-
-// Test data
-// $scope.movies = [
-//     {
-//         createDateTime: "2018-11-01 19:52:28.0",
-//         genre: "Action",
-//         id: 10,
-//         releaseYear: 1990,
-//         title: "The World Is Not Enough"
-//     },
-//     {
-//         createDateTime: "2018-11-08 19:42:35.0",
-//         genre: "Horror",
-//         id: 11,
-//         releaseYear: 1977,
-//         title: "Star Wars"
-//     },
-//     {
-//         createDateTime: "2018-11-08 19:42:56.0",
-//         genre: "Comedy",
-//         id: 12,
-//         releaseYear: 1987,
-//         title: "Spaceballs"
-//     },
-//     {
-//         createDateTime: "2018-11-08 20:14:06.0",
-//         genre: "SciFi",
-//         id: 13,
-//         releaseYear: 1971,
-//         title: "Java Rocks!"
-//     },
-//     {
-//         createDateTime: "2018-11-08 20:14:06.0",
-//         genre: "SciFi",
-//         id: 14,
-//         releaseYear: 1981,
-//         title: "Angular Test Flick!"
-//      }
-//  ];
-// });
-
+})();

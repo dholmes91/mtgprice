@@ -17,7 +17,7 @@ public interface CardDao {
 
      List<Card> getCardsByRarity(Rarity rarity);
 
-     List<Card> getCardsById(Integer cardId);
+     List<Card> getCardsById(Integer cardIdValue);
 
      List<Card> getCardsByName(String nameValue);
 

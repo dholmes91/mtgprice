@@ -4,22 +4,31 @@
     mtgapp.config(function ($routeProvider) {
         $routeProvider
             .when("/topmovers", {
-                templateUrl: "topMovers.html",
+                templateUrl: "topmovers.html",
                 controller: "searchController"
             })
             .when("/stack", {
-                templateUrl: "stack.html"
+                templateUrl: "stack.html",
+                controller: "searchController"
             })
             .when("/resume", {
-                templateUrl: "resume.html"
+                templateUrl: "resume.html",
+                controller: "searchController"
             })
             .when("/main", {
-                templateUrl: "main.html"
+                templateUrl: "main.html",
+                controller: "searchController"
             })
-            // .otherwise({
-            //     redirectTo: "/main"
-            // });
+            .when("/search", {
+                templateUrl: "search.html",
+                controller: "searchController"
+            })
+            .when("/watchlist", {
+                templateUrl: "watchlist.html",
+                controller: "searchController"
+            })
+            .otherwise({
+                redirectTo: "/main"
+            });
     });
-
-
 })();
