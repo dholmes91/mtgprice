@@ -62,9 +62,8 @@ public class CardDaoImpl implements CardDao {
                     "        c.rarity AS rarity, " +
                     "        c.colors AS colors, " +
                     "        c.type AS type, " +
-                    "       c.setCode AS setCode, " +
-                    "        c.manaValue AS manaValue, " +
                     "        c.setCode AS setCode, " +
+                    "        c.manaValue AS manaValue, " +
                     "        cp1.vendor AS vendor, " +
                     "        cp1.price_type AS price_type, " +
                     "        cp1.price_date AS price_date1, " +
@@ -72,9 +71,12 @@ public class CardDaoImpl implements CardDao {
                     "        cp2.price_date AS price_date2, " +
                     "        cp2.price AS price2, " +
                     "        cp1.currency AS currency, " +
+                    "        cpu.tcgplayer AS purchase_url, " +
                     "        cp2.price - cp1.price AS price_difference " +
                     "    FROM " +
-                    "        cardprices cp1 " +
+                    "        cards c " +
+                    "    JOIN " +
+                    "        cardprices cp1 ON c.uuid = cp1.uuid " +
                     "    JOIN " +
                     "        cardprices cp2 ON cp1.uuid = cp2.uuid " +
                     "            AND cp1.vendor = cp2.vendor " +
@@ -83,15 +85,14 @@ public class CardDaoImpl implements CardDao {
                     "    JOIN " +
                     "        cardlegalities cl ON cp1.uuid = cl.uuid " +
                     "    JOIN " +
-                    "        cards c ON cp1.uuid = c.uuid " +
+                    "        cardpurchaseurls cpu ON c.uuid = cpu.uuid " +
                     "    WHERE " +
                     "        cp1.price_date = '2024-06-11' " +
                     "        AND cp2.price_date = '2024-06-17' " +
                     "        AND cl.standard = 'Legal' " +
                     "        AND cp1.vendor = 'tcgplayer' " +
                     "        AND cp1.price_type = 'retail_normal' " +
-                    "        AND setCode IN ('MID', 'VOW', 'NEO', 'SNC', 'DMU', 'BRO', 'ONE', 'MOM', 'MAT', 'WOE', 'WOT', 'LCI', 'MKM', 'OTJ', 'BIG', 'OTP') "
-                    +
+                    "        AND c.setCode IN ('MID', 'VOW', 'NEO', 'SNC', 'DMU', 'BRO', 'ONE', 'MOM', 'MAT', 'WOE', 'WOT', 'LCI', 'MKM', 'OTJ', 'BIG', 'OTP') " +
                     "        AND cp1.currency = 'USD' " +
                     "    ORDER BY " +
                     "        price_difference DESC " +
@@ -105,9 +106,8 @@ public class CardDaoImpl implements CardDao {
                     "        c.rarity AS rarity, " +
                     "        c.colors AS colors, " +
                     "        c.type AS type, " +
-                    "       c.setCode AS setCode, " +
-                    "        c.manaValue AS manaValue, " +
                     "        c.setCode AS setCode, " +
+                    "        c.manaValue AS manaValue, " +
                     "        cp1.vendor AS vendor, " +
                     "        cp1.price_type AS price_type, " +
                     "        cp1.price_date AS price_date1, " +
@@ -115,9 +115,12 @@ public class CardDaoImpl implements CardDao {
                     "        cp2.price_date AS price_date2, " +
                     "        cp2.price AS price2, " +
                     "        cp1.currency AS currency, " +
+                    "        cpu.tcgplayer AS purchase_url, " +
                     "        cp2.price - cp1.price AS price_difference " +
                     "    FROM " +
-                    "        cardprices cp1 " +
+                    "        cards c " +
+                    "    JOIN " +
+                    "        cardprices cp1 ON c.uuid = cp1.uuid " +
                     "    JOIN " +
                     "        cardprices cp2 ON cp1.uuid = cp2.uuid " +
                     "            AND cp1.vendor = cp2.vendor " +
@@ -126,20 +129,20 @@ public class CardDaoImpl implements CardDao {
                     "    JOIN " +
                     "        cardlegalities cl ON cp1.uuid = cl.uuid " +
                     "    JOIN " +
-                    "        cards c ON cp1.uuid = c.uuid " +
+                    "        cardpurchaseurls cpu ON c.uuid = cpu.uuid " +
                     "    WHERE " +
                     "        cp1.price_date = '2024-06-11' " +
                     "        AND cp2.price_date = '2024-06-17' " +
                     "        AND cl.standard = 'Legal' " +
                     "        AND cp1.vendor = 'tcgplayer' " +
                     "        AND cp1.price_type = 'retail_normal' " +
-                    "AND setCode IN ('MID', 'VOW', 'NEO', 'SNC', 'DMU', 'BRO', 'ONE', 'MOM', 'MAT', 'WOE', 'WOT', 'LCI', 'MKM', 'OTJ', 'BIG', 'OTP') "
-                    +
+                    "        AND c.setCode IN ('MID', 'VOW', 'NEO', 'SNC', 'DMU', 'BRO', 'ONE', 'MOM', 'MAT', 'WOE', 'WOT', 'LCI', 'MKM', 'OTJ', 'BIG', 'OTP') " +
                     "        AND cp1.currency = 'USD' " +
                     "    ORDER BY " +
                     "        price_difference ASC " +
                     "    LIMIT 5 " + // Bottom 5 movers
                     ");";
+
 
     private static final String SELECT_BY_SET = "SELECT " +
             "    DISTINCT c.name AS name, " +
@@ -156,6 +159,7 @@ public class CardDaoImpl implements CardDao {
             "    cp2.price_date AS price_date2, " +
             "    cp2.price AS price2, " +
             "    cp1.currency AS currency, " +
+            "    cpu.tcgplayer AS purchase_url, " +
             "    cp2.price - cp1.price AS price_difference " +
             "FROM " +
             "    cards c " +
@@ -168,6 +172,8 @@ public class CardDaoImpl implements CardDao {
             "    AND cp1.currency = cp2.currency " +
             "JOIN " +
             "    cardlegalities cl ON cp1.uuid = cl.uuid " +
+            "    JOIN " +
+            "        cardpurchaseurls cpu ON c.uuid = cpu.uuid " +
             "WHERE " +
             "setCode IN ('MID', 'VOW', 'NEO', 'SNC', 'DMU', 'BRO', 'ONE', 'MOM', 'MAT', 'WOE', 'WOT', 'LCI', 'MKM', 'OTJ', 'BIG', 'OTP') "
             +
@@ -196,6 +202,7 @@ public class CardDaoImpl implements CardDao {
             "cp2.price_date AS price_date2, " +
             "cp2.price AS price2, " +
             "cp1.currency AS currency, " +
+            "cpu.tcgplayer AS purchase_url, " +
             "cp2.price - cp1.price AS price_difference " +
             "FROM " +
             "    cards c " +
@@ -208,6 +215,8 @@ public class CardDaoImpl implements CardDao {
             "    AND cp1.currency = cp2.currency " +
             "JOIN " +
             "    cardlegalities cl ON cp1.uuid = cl.uuid " +
+            "    JOIN " +
+            "        cardpurchaseurls cpu ON c.uuid = cpu.uuid " +
             "WHERE " +
             "setCode IN ('MID', 'VOW', 'NEO', 'SNC', 'DMU', 'BRO', 'ONE', 'MOM', 'MAT', 'WOE', 'WOT', 'LCI', 'MKM', 'OTJ', 'BIG', 'OTP') "
             +
@@ -234,6 +243,7 @@ public class CardDaoImpl implements CardDao {
             "cp2.price_date AS price_date2, " +
             "cp2.price AS price2, " +
             "cp1.currency AS currency, " +
+            "cpu.tcgplayer AS purchase_url, " +
             "cp2.price - cp1.price AS price_difference " +
             "FROM " +
             "    cards c " +
@@ -248,6 +258,8 @@ public class CardDaoImpl implements CardDao {
             "    AND cp1.currency = cp2.currency " +
             "JOIN " +
             "    cardlegalities cl ON cp1.uuid = cl.uuid " +
+            "    JOIN " +
+            "        cardpurchaseurls cpu ON c.uuid = cpu.uuid " +
             "WHERE " +
             "    c.id = ?";
 
