@@ -32,6 +32,16 @@
                 });
         };
 
+        $scope.orderByColumn = function (column) {
+            $scope.orderByValue = column;
+            if ($scope.reverse == true) {
+                $scope.reverse = false;
+            } else {
+                $scope.reverse = true;
+            }
+        }
+
+
         $scope.getCardsByName = function (name) {
             if (!name) {
                 console.log('error: no card name provided');

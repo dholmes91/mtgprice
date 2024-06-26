@@ -28,7 +28,8 @@
 
             <form class="form-inline float-right">
                 <div class="input-group">
-                    <input type="text" class="form-control" maxlength="30" ng-model="searchValue">
+                    <input type="text" class="form-control" minlength="3" maxlength="30" ng-model="searchValue"
+                        placeholder="Enter 3+ characters">
                     <div class="input-group-append">
                         <button class="btn btn-primary" ng-click="getCardsByName(searchValue)">Search</button>
                     </div>
@@ -37,31 +38,33 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-hover table-dark">
+                <table class="table table-hover table-secondary table-striped">
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Set</th>
-                            <th>Rarity</th>
-                            <th>Type</th>
-                            <th>Price</th>
-                            <th>Price Movement</th>
-                            <th>id</th>
+                            <th ng-click="orderByColumn('name')"><button class="btn btn-secondary">Name</button></th>
+                            <th ng-click="orderByColumn('code')"><button class="btn btn-secondary">Set</button></th>
+                            <th ng-click="orderByColumn('rarity')"><button class="btn btn-secondary">Rarity</button>
+                            </th>
+                            <th ng-click="orderByColumn('type')"><button class="btn btn-secondary">Type</button></th>
+                            <th ng-click="orderByColumn('price2')"><button class="btn btn-secondary">Price</button></th>
+                            <th ng-click="orderByColumn('priceDiff')"><button class="btn btn-secondary">Price
+                                    Movement</button></th>
+
                             <th>Watchlist</th>
                         </tr>
                     </thead>
                     <tbody ng-show="!showSpinner">
-                        <tr ng-repeat="card in cards">
+                        <tr ng-repeat="card in cards | orderBy:orderByValue:reverse">
                             <td>{{card.name}}</td>
                             <td>{{card.code}}</td>
                             <td>{{card.rarity}}</td>
                             <td>{{card.type}}</td>
-                            <td>{{card.price2}}</td>
-                            <td>{{card.priceDiff}}</td>
-                            <td>{{card.cardId}}</td>
+                            <td>${{card.price2}}</td>
+                            <td>${{card.priceDiff}}</td>
+
 
                             <td>
-                                <button type="button" data-id="{{card}}" class="btn btn-primary btn-sm"
+                                <button type="button" data-id="{{card.cardId}}" class="btn btn-primary btn-sm"
                                     ng-click="addToWatchList(card.cardId)">Add to Watchlist</button>
                             </td>
                         </tr>

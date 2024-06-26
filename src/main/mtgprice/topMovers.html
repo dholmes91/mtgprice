@@ -29,24 +29,26 @@
             <h4 class="text-white">Top 10 Movers</h4>
         </div>
         <div class="card-body">
-            <table class="table table-hover table-dark table-striped">
+            <table class="table table-hover table-secondary table-striped">
                 <thead class="text-light">
                     <tr>
-                        <th>Name</a></th>
-                        <th>Set</a></th>
-                        <th>Rarity</a></th>
-                        <th>Type</a></th>
-                        <th>Price</a></th>
-                        <th>Price Movement</a></th>
+                        <th ng-click="orderByColumn('name')"><button class="btn btn-secondary">Name</button></th>
+                        <th ng-click="orderByColumn('code')"><button class="btn btn-secondary">Set</button></th>
+                        <th ng-click="orderByColumn('rarity')"><button class="btn btn-secondary">Rarity</button></th>
+                        <th ng-click="orderByColumn('type')"><button class="btn btn-secondary">Type</button></th>
+                        <th ng-click="orderByColumn('price2')"><button class="btn btn-secondary">Price</button></th>
+                        <th ng-click="orderByColumn('priceDiff')"><button class="btn btn-secondary">Price
+                                Movement</button></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="card in cards" ng-class="getPriceDiffClass(card.priceDiff)">
+                    <tr ng-repeat="card in cards | orderBy:orderByValue:reverse"
+                        ng-class="getPriceDiffClass(card.priceDiff)">
                         <td class="font-weight-bold">{{card.name}}</td>
                         <td>{{card.code}}</td>
                         <td>{{card.rarity}}</td>
                         <td>{{card.type}}</td>
-                        <td>{{card.price2}}</td>
+                        <td>${{card.price2}}</td>
                         <td>${{card.priceDiff | number: '2'}}</td>
                     </tr>
                     <tr ng-show=" showSpinner">
