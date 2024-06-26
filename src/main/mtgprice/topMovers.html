@@ -19,6 +19,16 @@
             background-color: #343a40;
             color: #ffffff;
         }
+
+        .text-success {
+            color: #167c01 !important;
+            /* Adjust this to a brighter green */
+        }
+
+        .text-danger {
+            color: #dc3545 !important;
+            /* Adjust this to a brighter red */
+        }
     </style>
 </head>
 
@@ -44,11 +54,13 @@
                 <tbody>
                     <tr ng-repeat="card in cards | orderBy:orderByValue:reverse"
                         ng-class="getPriceDiffClass(card.priceDiff)">
-                        <td class="font-weight-bold">{{card.name}}</td>
+                        <td class="font-weight-bold"><a href=""
+                                ng-click="openPurchaseUrl(card.purchase_url)">{{card.name}}</a>
+                        </td>
                         <td>{{card.code}}</td>
                         <td>{{card.rarity}}</td>
                         <td>{{card.type}}</td>
-                        <td>${{card.price2}}</td>
+                        <td>${{card.price2 | number: '2'}}</td>
                         <td>${{card.priceDiff | number: '2'}}</td>
                     </tr>
                     <tr ng-show=" showSpinner">

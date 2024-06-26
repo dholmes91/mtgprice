@@ -1,6 +1,5 @@
 package com.aca.mtgprice.model;
 
-
 public class Card {
     private String name;
     private Type type;
@@ -12,7 +11,15 @@ public class Card {
     private Integer cardId;
     private Integer CMC;
     private String color;
+    private String purchase_url;
 
+    public String getPurchaseUrl() {
+        return purchase_url;
+    }
+
+    public void setPurchaseUrl(String purchase_url) {
+        this.purchase_url = purchase_url;
+    }
 
     public String getColor() {
         return color;

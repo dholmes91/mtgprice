@@ -98,18 +98,20 @@
                 });
         };
 
-        $scope.addToWatchList =
-            function (cardId) {
+        $scope.watchList = JSON.parse(localStorage.getItem('watchlist')) || [];
 
-
-                // local storage
-                $scope.watchList.add(cardId);
-
-                localStorage.setItem(
-                    'watchlist', JSON.stringify($scope.watchList)
-                );
-                console.log($scope.watchList);
+        $scope.addToWatchList = function (card) {
+            // Check if the card is already in the watchlist
+            const existingCard = $scope.watchList.find(item => item.cardId === card.cardId);
+            if (!existingCard) {
+                $scope.watchList.push(card);
+                localStorage.setItem('watchlist', JSON.stringify($scope.watchList));
+                alert('Added to watchlist!');
+            } else {
+                alert('Card is already in the watchlist.');
             }
+            console.log($scope.watchList);
+        };
 
         $scope.getTopMovers();
 
@@ -118,6 +120,10 @@
                 'text-success': priceDiff > 0,
                 'text-danger': priceDiff < 0
             };
+        };
+
+        $scope.openPurchaseUrl = function (purchase_url) {
+            window.open(purchase_url, '_blank');
         };
 
         // $scope.getPriceDiffIndicator = function (priceDiff) {

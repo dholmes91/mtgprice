@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class ExceptionHandlerController {
 
-    @ExceptionHandler({CardException.class, Exception.class})
-    public ResponseEntity<ExceptionResponse> handleMovieException(CardException movieException,
-                                                                  HttpServletRequest request) {
+    @ExceptionHandler({ CardException.class, Exception.class })
+    public ResponseEntity<ExceptionResponse> handleMovieException(CardException cardException,
+            HttpServletRequest request) {
 
         ExceptionResponse exceptionResponse = new ExceptionResponse();
 
-        exceptionResponse.setMessage(movieException.getMessage());
+        exceptionResponse.setMessage(cardException.getMessage());
         exceptionResponse.setRequestURI(request.getRequestURI());
 
         return ResponseEntity.badRequest().body(exceptionResponse);

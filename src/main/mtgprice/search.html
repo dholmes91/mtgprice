@@ -18,6 +18,16 @@
     body {
         background-color: #343a40;
     }
+
+    .text-success {
+        color: #167c01 !important;
+        /* Adjust this to a brighter green */
+    }
+
+    .text-danger {
+        color: #dc3545 !important;
+        /* Adjust this to a brighter red */
+    }
 </style>
 
 <body class="bg-secondary">
@@ -54,18 +64,19 @@
                         </tr>
                     </thead>
                     <tbody ng-show="!showSpinner">
-                        <tr ng-repeat="card in cards | orderBy:orderByValue:reverse">
-                            <td>{{card.name}}</td>
+                        <tr ng-repeat="card in cards | orderBy:orderByValue:reverse"
+                            ng-class="getPriceDiffClass(card.priceDiff)">
+                            <td class="font-weight-bold">{{card.name}}</td>
                             <td>{{card.code}}</td>
                             <td>{{card.rarity}}</td>
                             <td>{{card.type}}</td>
-                            <td>${{card.price2}}</td>
-                            <td>${{card.priceDiff}}</td>
+                            <td>${{card.price2 | number: '2'}}</td>
+                            <td>${{card.priceDiff | number: '2'}}</td>
 
 
                             <td>
-                                <button type="button" data-id="{{card.cardId}}" class="btn btn-primary btn-sm"
-                                    ng-click="addToWatchList(card.cardId)">Add to Watchlist</button>
+                                <button type="button" class="btn btn-primary btn-sm" ng-click="addToWatchList(card)">Add
+                                    to Watchlist</button>
                             </td>
                         </tr>
                     </tbody>

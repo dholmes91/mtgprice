@@ -31,7 +31,7 @@ public class CardDaoImpl implements CardDao {
             "FROM " +
             "    cards c " +
             "JOIN " +
-            "cardpurchaseurls cpu ON c.id = cpu.id " +
+            "   cardpurchaseurls cpu ON c.uuid = cpu.uuid " +
             "JOIN " +
             "    cardprices cp1 ON c.uuid = cp1.uuid " +
             "JOIN " +
@@ -303,6 +303,7 @@ public class CardDaoImpl implements CardDao {
             card.setPrice1(result.getDouble("price1"));
             card.setPrice2(result.getDouble("price2"));
             card.setPriceDiff(result.getDouble("price_difference"));
+            card.setPurchaseUrl(result.getString("purchase_url"));
             myCards.add(card);
         }
 
@@ -389,23 +390,6 @@ public class CardDaoImpl implements CardDao {
         return myCards;
     }
 
-    // @Override
-    // public String getCardPurchaseUrl(Integer id) {
-    // String purchaseUrl = null;
-    // try (Connection conn = MariaDbUtil.getConnection();
-    // PreparedStatement stmt = conn.prepareStatement(selectByPurchaseUrl)) {
-    // stmt.setLong(1, id);
-    // try (ResultSet rs = stmt.executeQuery()) {
-    // if (rs.next()) {
-    // purchaseUrl = rs.getString("tcgplayer");
-    // }
-    // }
-    // } catch (SQLException e) {
-    // // Handle SQLException
-    // }
-    // return purchaseUrl;
-    // }
-
     @Override
     public List<Card> getCardsByCMC(Integer manaValue) {
         return List.of();
@@ -420,4 +404,5 @@ public class CardDaoImpl implements CardDao {
     public List<Card> getCardsByType(Type type) {
         return List.of();
     }
+
 }
