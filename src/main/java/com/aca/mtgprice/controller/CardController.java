@@ -16,7 +16,7 @@ import com.aca.mtgprice.service.CardService;
 
 @RestController
 @RequestMapping(value = "api/cards", produces = "application/json")
-@CrossOrigin("http://localhost:5500")
+@CrossOrigin("http://127.0.0.1:5500")
 
 public class CardController {
     private CardService service = new CardService();

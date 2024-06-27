@@ -81,8 +81,22 @@
                 });
         };
 
+        $scope.addToWatchlist = function (card) {
+            const existingCard = $scope.watchlist.find(item => item.cardId === card.cardId);
+            if (!existingCard) {
+                $scope.watchlist.push(card);
+                localStorage.setItem('watchlist', JSON.stringify(Array.from($scope.watchlist)));
+                $scope.showToast = true;
+                $timeout(function () {
+                    $scope.showToast = false;
+                }, 2000);
+            } else {
+                alert('Card is already in the watchlist.');
+            }
+            console.log($scope.watchlist);
+        };
 
-        $scope.getTopMovers(); // Initialize data on page load
+        $scope.getTopMovers();
 
         $scope.getPriceDiffClass = function (priceDiff) {
             return {

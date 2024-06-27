@@ -7,6 +7,7 @@
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <!-- Bootstrap JS and dependencies (jQuery and Popper.js) -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -15,84 +16,86 @@
     <link rel="stylesheet" href="./css/style.css">
 </head>
 
-<body class="bg-secondary">
-    <div class="toast" id="toastAddedToWatchlist" role="alert" aria-live="assertive" aria-atomic="true"
-        data-delay="2000">
-        <div class="toast-header">
-            <strong class="mr-auto">Added to Watchlist</strong>
-            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="toast-body">
-            This card has been added to your watchlist.
-        </div>
+<div class="toast" ng-show="showToast" id="toastAddedToWatchlist" role="alert" aria-live="assertive" aria-atomic="true"
+    style="position: absolute; top: 1rem; right: 1rem;">
+    <div class="toast-header">
+        <strong class="mr-auto">Added to Watchlist</strong>
+        <button type="button" class="ml-2 mb-1 close" ng-click="hideToast()">&times;</button>
     </div>
+    <div class="toast-body">
+        This card has been added to your watchlist.
+    </div>
+</div>
 
-    <div class="container mt-3">
-        <div class="card">
-            <div class="card-header bg-info">
-                <h4 class="text-white float-left">Card Search</h4>
+<div class="container mt-3">
+    <div class="card">
+        <div class="card-header bg-info">
+            <h4 class="text-white float-left">Card Search</h4>
 
-                <form class="form-inline float-right">
-                    <div class="input-group">
-                        <input type="text" class="form-control" minlength="3" maxlength="30" ng-model="searchValue"
-                            placeholder="Enter 3+ characters">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" ng-click="getCardsByName(searchValue)">Search</button>
-                        </div>
+            <form class="form-inline float-right">
+                <div class="input-group">
+                    <input type="text" class="form-control" minlength="3" maxlength="30" ng-model="searchValue"
+                        placeholder="Enter 3+ characters">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" ng-click="getCardsByName(searchValue)">Search</button>
                     </div>
-                </form>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-hover table-secondary table-striped">
-                        <thead>
-                            <tr>
-                                <th ng-click="orderByColumn('name')"><button class="btn btn-secondary">Name</button>
-                                </th>
-                                <th ng-click="orderByColumn('code')"><button class="btn btn-secondary">Set</button></th>
-                                <th ng-click="orderByColumn('rarity')"><button class="btn btn-secondary">Rarity</button>
-                                </th>
-                                <th ng-click="orderByColumn('type')"><button class="btn btn-secondary">Type</button>
-                                </th>
-                                <th ng-click="orderByColumn('price2')"><button class="btn btn-secondary">Price</button>
-                                </th>
-                                <th ng-click="orderByColumn('priceDiff')"><button class="btn btn-secondary">Price
-                                        Movement</button></th>
+                </div>
+            </form>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover table-secondary table-striped">
+                    <thead>
+                        <tr>
+                            <th ng-click="orderByColumn('name')"><button class="btn btn-secondary fa fa-sort">
+                                    Name</button>
+                            </th>
+                            <th ng-click="orderByColumn('code')"><button class="btn btn-secondary fa fa-sort">
+                                    Set</button>
+                            </th>
+                            <th ng-click="orderByColumn('rarity')"><button class="btn btn-secondary fa fa-sort">
+                                    Rarity</button></th>
+                            <th ng-click="orderByColumn('type')"><button class="btn btn-secondary fa fa-sort">
+                                    Type</button>
+                            </th>
+                            <th ng-click="orderByColumn('price2')"><button class="btn btn-secondary fa fa-sort">
+                                    Price</button></th>
+                            <th ng-click="orderByColumn('priceDiff')"><button class="btn btn-secondary fa fa-sort">
+                                    Price
+                                    Movement</button></th>
 
-                            </tr>
-                        </thead>
-                        <tbody ng-show="!showSpinner">
-                            <tr ng-repeat="card in cards | orderBy:orderByValue:reverse"
-                                ng-class="getPriceDiffClass(card.priceDiff)">
-                                <td><button class="btn btn-link purchase-link font-weight-bold text-left"
-                                        ng-click="openPurchaseUrl(card.purchaseUrl)">{{card.name}}</button></td>
-                                <td>{{card.code}}</td>
-                                <td>{{card.rarity}}</td>
-                                <td>{{card.type}}</td>
-                                <td>${{card.price2 | number: '2'}}</td>
-                                <td class="text-center">${{card.priceDiff | number: '2'}}</td>
-                                <td>
-                                    <button type="button" class="btn btn-primary btn-sm"
-                                        ng-click="addToWatchlist(card)">Add to Watchlist</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div ng-show="showSpinner" class="text-center pt-4">
-                    <div class="spinner-border text-info" style="width: 3rem; height: 3rem;"></div>
-                    <br>
-                    <p class="text-info">Loading search results...</p>
-                </div>
+                        </tr>
+                    </thead>
+                    <tbody ng-show="!showSpinner">
+                        <tr ng-repeat="card in cards | orderBy:orderByValue:reverse"
+                            ng-class="getPriceDiffClass(card.priceDiff)">
+                            <td><button class="btn btn-link purchase-link font-weight-bold text-left"
+                                    ng-click="openPurchaseUrl(card.purchaseUrl)">{{card.name}}</button></td>
+                            <td>{{card.code}}</td>
+                            <td>{{card.rarity}}</td>
+                            <td>{{card.type}}</td>
+                            <td>${{card.price2 | number: '2'}}</td>
+                            <td class="text-center">${{card.priceDiff | number: '2'}}</td>
+                            <td>
+                                <button type="button" class="btn btn-primary btn-sm" ng-click="addToWatchlist(card)">Add
+                                    to Watchlist</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <div class="card-footer text-light bg-info">
-                Please select a card to add to watchlist. Card names will take you directly to tcgPlayer's purchase
-                link!
+            <div ng-show="showSpinner" class="text-center pt-4">
+                <div class="spinner-border text-info" style="width: 3rem; height: 3rem;"></div>
+                <br>
+                <p class="text-info">Loading search results...</p>
             </div>
         </div>
+        <div class="card-footer text-light bg-info">
+            Please select a card to add to watchlist. Card names will take you directly to tcgPlayer's purchase
+            link!
+        </div>
     </div>
+</div>
 
 </body>
 
