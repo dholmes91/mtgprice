@@ -27,4 +27,6 @@ public interface CardDao {
 
      List<Card> getCardsByType(Type type);
 
+     List<Card> getPurchaseUrl(String urlValue);
+
 }

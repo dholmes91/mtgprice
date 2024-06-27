@@ -1,0 +1,108 @@
+.text-success {
+    color: #167c01 !important;
+    /* Adjust this to a brighter green */
+}
+
+
+.text-danger {
+    color: #dc3545 !important;
+    /* Adjust this to a brighter red */
+}
+
+body {
+    background-color: #343a40;
+}
+
+.purchase-link {
+
+    text-decoration: none !important;
+    color: inherit !important;
+    text-decoration: underline !important;
+
+}
+
+
+.navbar {
+
+    background-image: url('../images/Planeswalker_symbol_correct_width.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    /* Adjust as needed */
+    background-position: 10px center;
+    /* Adjust position of the background image */
+}
+
+
+.navbar-brand {
+    margin-left: 40px;
+}
+
+.jumbotron {
+    background-color: #1a1a1a;
+    /* Darker background color for the jumbotron */
+    color: #ffffff;
+    /* White text color for the jumbotron */
+    margin-bottom: 0;
+    /* Remove default margin for jumbotron */
+    padding: 30px;
+    /* Added padding for better spacing inside jumbotron */
+
+
+}
+
+
+
+
+.card {
+    background-color: #2c2c2c;
+    /* Darker background color for cards */
+    border: none;
+    /* Remove default card border */
+    margin-bottom: 30px;
+    /* Added margin bottom for spacing between cards */
+}
+
+.card-title a {
+    color: #ffffff;
+    /* White color for card titles */
+    text-decoration: none;
+    /* Remove underline from links */
+}
+
+.card-title a:hover {
+    color: #f0ad4e;
+    /* Change link color on hover */
+}
+
+.card-body {
+    padding: 20px;
+    /* Added padding inside card body */
+}
+
+.card-img-top {
+    border-bottom: 1px solid #343a40;
+    /* Add border below image to separate from card body */
+}
+
+.news-header {
+    background-color: #1a1a1a;
+    /* Darker background color for news header */
+    color: #ffffff;
+    /* White text color for news header */
+    padding: 15px;
+    /* Added padding for spacing inside news header */
+    margin-bottom: 20px;
+    /* Added margin bottom for spacing between news header and cards */
+}
+
+.news-header a {
+    color: #f0ad4e;
+    /* Yellow color for news header link */
+    text-decoration: none;
+    /* Remove underline from links */
+}
+
+.news-header a:hover {
+    color: #ffffff;
+    /* Change link color on hover */
+}

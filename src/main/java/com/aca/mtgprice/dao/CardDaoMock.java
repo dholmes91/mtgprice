@@ -52,7 +52,6 @@ public class CardDaoMock implements CardDao {
 
     }
 
-
     @Override
     public List<Card> getCards() {
         return new ArrayList<>(cards);
@@ -132,5 +131,11 @@ public class CardDaoMock implements CardDao {
     @Override
     public List<Card> getCardsByType(Type type) {
         return List.of();
+    }
+
+    @Override
+    public List<Card> getPurchaseUrl(String urlValue) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getPurchaseUrl'");
     }
 }

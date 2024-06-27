@@ -11,14 +11,14 @@ public class Card {
     private Integer cardId;
     private Integer CMC;
     private String color;
-    private String purchase_url;
+    private String purchaseUrl;
 
     public String getPurchaseUrl() {
-        return purchase_url;
+        return purchaseUrl;
     }
 
     public void setPurchaseUrl(String purchase_url) {
-        this.purchase_url = purchase_url;
+        this.purchaseUrl = purchase_url;
     }
 
     public String getColor() {

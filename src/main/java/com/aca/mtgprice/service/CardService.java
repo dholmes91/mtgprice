@@ -49,5 +49,8 @@ public class CardService {
         return cardDao.getCardsByColor(colorValue);
     }
 
+    public List<Card> getPurchaseUrl(String urlValue) {
+        return cardDao.getPurchaseUrl(urlValue);
+    }
 
 }

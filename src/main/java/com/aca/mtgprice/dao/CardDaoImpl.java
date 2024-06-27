@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class CardDaoImpl implements CardDao {
 
     private static final String SELECT_ALL_CARDS = "SELECT " +
-            "c.name AS name, " +
+            "DISTINCT c.name AS name, " +
             "c.id AS id, " +
             "c.rarity AS rarity, " +
             "c.colors AS colors, " +
@@ -92,7 +92,8 @@ public class CardDaoImpl implements CardDao {
                     "        AND cl.standard = 'Legal' " +
                     "        AND cp1.vendor = 'tcgplayer' " +
                     "        AND cp1.price_type = 'retail_normal' " +
-                    "        AND c.setCode IN ('MID', 'VOW', 'NEO', 'SNC', 'DMU', 'BRO', 'ONE', 'MOM', 'MAT', 'WOE', 'WOT', 'LCI', 'MKM', 'OTJ', 'BIG', 'OTP') " +
+                    "        AND c.setCode IN ('MID', 'VOW', 'NEO', 'SNC', 'DMU', 'BRO', 'ONE', 'MOM', 'MAT', 'WOE', 'WOT', 'LCI', 'MKM', 'OTJ', 'BIG', 'OTP') "
+                    +
                     "        AND cp1.currency = 'USD' " +
                     "    ORDER BY " +
                     "        price_difference DESC " +
@@ -136,13 +137,13 @@ public class CardDaoImpl implements CardDao {
                     "        AND cl.standard = 'Legal' " +
                     "        AND cp1.vendor = 'tcgplayer' " +
                     "        AND cp1.price_type = 'retail_normal' " +
-                    "        AND c.setCode IN ('MID', 'VOW', 'NEO', 'SNC', 'DMU', 'BRO', 'ONE', 'MOM', 'MAT', 'WOE', 'WOT', 'LCI', 'MKM', 'OTJ', 'BIG', 'OTP') " +
+                    "        AND c.setCode IN ('MID', 'VOW', 'NEO', 'SNC', 'DMU', 'BRO', 'ONE', 'MOM', 'MAT', 'WOE', 'WOT', 'LCI', 'MKM', 'OTJ', 'BIG', 'OTP') "
+                    +
                     "        AND cp1.currency = 'USD' " +
                     "    ORDER BY " +
                     "        price_difference ASC " +
                     "    LIMIT 5 " + // Bottom 5 movers
                     ");";
-
 
     private static final String SELECT_BY_SET = "SELECT " +
             "    DISTINCT c.name AS name, " +
@@ -367,6 +368,27 @@ public class CardDaoImpl implements CardDao {
                 PreparedStatement pstmt = conn.prepareStatement(selectById)) {
 
             pstmt.setInt(1, cardIdValue);
+
+            try (ResultSet result = pstmt.executeQuery()) {
+                myCards = makeCard(result);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return myCards;
+    }
+
+    @Override
+    public List<Card> getPurchaseUrl(String urlValue) {
+        List<Card> myCards = new ArrayList<>();
+
+        try (Connection conn = MariaDbUtil.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(selectById)) {
+
+            pstmt.setString(1, urlValue);
 
             try (ResultSet result = pstmt.executeQuery()) {
                 myCards = makeCard(result);
