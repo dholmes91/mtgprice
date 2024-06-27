@@ -54,6 +54,10 @@
                         <td>{{card.type}}</td>
                         <td>${{card.price2 | number: '2'}}</td>
                         <td class="text-center">${{card.priceDiff | number: '2'}}</td>
+                        <td>
+                            <button type="button" class="btn btn-primary btn-sm" ng-click="addToWatchlist(card)">Add
+                                to Watchlist</button>
+                        </td>
                     </tr>
                     <tr ng-show=" showSpinner">
                         <td colspan="6" class="text-center">

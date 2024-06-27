@@ -86,7 +86,7 @@
             if (!existingCard) {
                 $scope.watchlist.push(card);
                 localStorage.setItem('watchlist', JSON.stringify(Array.from($scope.watchlist)));
-                $scope.showToast = true;
+                alert('Added to watchlist!')
                 $timeout(function () {
                     $scope.showToast = false;
                 }, 2000);
@@ -95,6 +95,18 @@
             }
             console.log($scope.watchlist);
         };
+
+        $scope.clearWatchlist = function () {
+            $scope.watchlist = [];
+            localStorage.setItem('watchlist', JSON.stringify($scope.watchlist));
+            $scope.showToast = true;
+            $timeout(function () {
+                $scope.showToast = false;
+            }, 2000);
+            console.log('Watchlist cleared:', $scope.watchlist);
+        };
+        
+        
 
         $scope.getTopMovers();
 

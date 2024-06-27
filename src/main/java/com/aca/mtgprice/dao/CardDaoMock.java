@@ -1,12 +1,12 @@
 package com.aca.mtgprice.dao;
 
-import com.aca.mtgprice.model.Card;
-import com.aca.mtgprice.model.Type;
-import com.aca.mtgprice.model.Code;
-import com.aca.mtgprice.model.Rarity;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import com.aca.mtgprice.model.Card;
+import com.aca.mtgprice.model.Code;
+import com.aca.mtgprice.model.Rarity;
+import com.aca.mtgprice.model.Type;
 
 public class CardDaoMock implements CardDao {
 
@@ -135,7 +135,6 @@ public class CardDaoMock implements CardDao {
 
     @Override
     public List<Card> getPurchaseUrl(String urlValue) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getPurchaseUrl'");
     }
 }
