@@ -1,13 +1,17 @@
 package com.aca.mtgprice.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.aca.mtgprice.model.Card;
 import com.aca.mtgprice.model.Code;
 import com.aca.mtgprice.model.Rarity;
 import com.aca.mtgprice.model.Type;
-
-import java.sql.*;
-import java.util.List;
-import java.util.ArrayList;
 
 public class CardDaoImpl implements CardDao {
 
@@ -273,7 +277,7 @@ public class CardDaoImpl implements CardDao {
                 ResultSet result = statement.executeQuery(SELECT_ALL_CARDS)) {
             myCards = makeCard(result);
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace(System.out);
         }
 
         return myCards;
@@ -288,10 +292,126 @@ public class CardDaoImpl implements CardDao {
                 ResultSet result = statement.executeQuery(SELECT_TOP_MOVERS)) {
             myCards = makeCard(result);
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace(System.out);
         }
 
         return myCards;
+    }
+
+    @Override
+    public List<Card> getCardsBySetCode(Code code) {
+        List<Card> myCards = new ArrayList<>();
+        ResultSet result = null;
+        PreparedStatement statement = null;
+        Connection conn = null;
+
+        try {
+            conn = MariaDbUtil.getConnection();
+            statement = conn.prepareStatement(SELECT_BY_SET);
+            statement.setString(1, code.toString());
+
+            result = statement.executeQuery();
+            myCards = makeCard(result);
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        } finally {
+            try {
+                if (result != null)
+                    result.close();
+                if (statement != null)
+                    statement.close();
+                if (conn != null)
+                    conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace(System.out);
+            }
+        }
+
+        return myCards;
+    }
+
+    @Override
+    public List<Card> getCardsByRarity(Rarity rarity) {
+        return List.of();
+    }
+
+    @Override
+    public List<Card> getCardsById(Integer cardIdValue) {
+        List<Card> myCards = new ArrayList<>();
+
+        try (Connection conn = MariaDbUtil.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(selectById)) {
+
+            pstmt.setInt(1, cardIdValue);
+
+            try (ResultSet result = pstmt.executeQuery()) {
+                myCards = makeCard(result);
+            } catch (SQLException e) {
+                e.printStackTrace(System.out);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+
+        return myCards;
+    }
+
+    @Override
+    public List<Card> getPurchaseUrl(String urlValue) {
+        List<Card> myCards = new ArrayList<>();
+
+        try (Connection conn = MariaDbUtil.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(selectById)) {
+
+            pstmt.setString(1, urlValue);
+
+            try (ResultSet result = pstmt.executeQuery()) {
+                myCards = makeCard(result);
+            } catch (SQLException e) {
+                e.printStackTrace(System.out);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+
+        return myCards;
+    }
+
+    @Override
+    public List<Card> getCardsByName(String nameValue) {
+        List<Card> myCards = new ArrayList<>();
+
+        try (Connection conn = MariaDbUtil.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(selectByName)) {
+
+            String nameWrap = "%" + nameValue + "%";
+            pstmt.setString(1, nameWrap);
+
+            try (ResultSet result = pstmt.executeQuery()) {
+                myCards = makeCard(result);
+            } catch (SQLException e) {
+                e.printStackTrace(System.out);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+
+        return myCards;
+    }
+
+    @Override
+    public List<Card> getCardsByCMC(Integer manaValue) {
+        return List.of();
+    }
+
+    @Override
+    public List<Card> getCardsByColor(String colorValue) {
+        return List.of();
+    }
+
+    @Override
+    public List<Card> getCardsByType(Type type) {
+        return List.of();
     }
 
     private List<Card> makeCard(ResultSet result) throws SQLException {
@@ -321,122 +441,6 @@ public class CardDaoImpl implements CardDao {
         }
 
         return myCards;
-    }
-
-    @Override
-    public List<Card> getCardsBySetCode(Code code) {
-        List<Card> myCards = new ArrayList<>();
-        ResultSet result = null;
-        PreparedStatement statement = null;
-        Connection conn = null;
-
-        try {
-            conn = MariaDbUtil.getConnection();
-            statement = conn.prepareStatement(SELECT_BY_SET);
-            statement.setString(1, code.toString());
-
-            result = statement.executeQuery();
-            myCards = makeCard(result);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (result != null)
-                    result.close();
-                if (statement != null)
-                    statement.close();
-                if (conn != null)
-                    conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return myCards;
-    }
-
-    @Override
-    public List<Card> getCardsByRarity(Rarity rarity) {
-        return List.of();
-    }
-
-    @Override
-    public List<Card> getCardsById(Integer cardIdValue) {
-        List<Card> myCards = new ArrayList<>();
-
-        try (Connection conn = MariaDbUtil.getConnection();
-                PreparedStatement pstmt = conn.prepareStatement(selectById)) {
-
-            pstmt.setInt(1, cardIdValue);
-
-            try (ResultSet result = pstmt.executeQuery()) {
-                myCards = makeCard(result);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return myCards;
-    }
-
-    @Override
-    public List<Card> getPurchaseUrl(String urlValue) {
-        List<Card> myCards = new ArrayList<>();
-
-        try (Connection conn = MariaDbUtil.getConnection();
-                PreparedStatement pstmt = conn.prepareStatement(selectById)) {
-
-            pstmt.setString(1, urlValue);
-
-            try (ResultSet result = pstmt.executeQuery()) {
-                myCards = makeCard(result);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return myCards;
-    }
-
-    @Override
-    public List<Card> getCardsByName(String nameValue) {
-        List<Card> myCards = new ArrayList<>();
-
-        try (Connection conn = MariaDbUtil.getConnection();
-                PreparedStatement pstmt = conn.prepareStatement(selectByName)) {
-
-            String nameWrap = "%" + nameValue + "%";
-            pstmt.setString(1, nameWrap);
-
-            try (ResultSet result = pstmt.executeQuery()) {
-                myCards = makeCard(result);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return myCards;
-    }
-
-    @Override
-    public List<Card> getCardsByCMC(Integer manaValue) {
-        return List.of();
-    }
-
-    @Override
-    public List<Card> getCardsByColor(String colorValue) {
-        return List.of();
-    }
-
-    @Override
-    public List<Card> getCardsByType(Type type) {
-        return List.of();
     }
 
 }
