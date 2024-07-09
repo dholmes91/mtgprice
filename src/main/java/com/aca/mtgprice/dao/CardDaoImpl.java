@@ -277,7 +277,7 @@ public class CardDaoImpl implements CardDao {
                 ResultSet result = statement.executeQuery(SELECT_ALL_CARDS)) {
             myCards = makeCard(result);
         } catch (SQLException e) {
-            e.printStackTrace(System.out);
+            e.printStackTrace(System.err);
         }
 
         return myCards;
@@ -292,7 +292,7 @@ public class CardDaoImpl implements CardDao {
                 ResultSet result = statement.executeQuery(SELECT_TOP_MOVERS)) {
             myCards = makeCard(result);
         } catch (SQLException e) {
-            e.printStackTrace(System.out);
+            e.printStackTrace(System.err);
         }
 
         return myCards;
@@ -313,7 +313,7 @@ public class CardDaoImpl implements CardDao {
             result = statement.executeQuery();
             myCards = makeCard(result);
         } catch (SQLException e) {
-            e.printStackTrace(System.out);
+            e.printStackTrace(System.err);
         } finally {
             try {
                 if (result != null)
@@ -323,7 +323,7 @@ public class CardDaoImpl implements CardDao {
                 if (conn != null)
                     conn.close();
             } catch (SQLException e) {
-                e.printStackTrace(System.out);
+                e.printStackTrace(System.err);
             }
         }
 
@@ -347,10 +347,10 @@ public class CardDaoImpl implements CardDao {
             try (ResultSet result = pstmt.executeQuery()) {
                 myCards = makeCard(result);
             } catch (SQLException e) {
-                e.printStackTrace(System.out);
+                e.printStackTrace(System.err);
             }
         } catch (SQLException e) {
-            e.printStackTrace(System.out);
+            e.printStackTrace(System.err);
         }
 
         return myCards;
@@ -368,10 +368,10 @@ public class CardDaoImpl implements CardDao {
             try (ResultSet result = pstmt.executeQuery()) {
                 myCards = makeCard(result);
             } catch (SQLException e) {
-                e.printStackTrace(System.out);
+                e.printStackTrace(System.err);
             }
         } catch (SQLException e) {
-            e.printStackTrace(System.out);
+            e.printStackTrace(System.err);
         }
 
         return myCards;
@@ -390,10 +390,10 @@ public class CardDaoImpl implements CardDao {
             try (ResultSet result = pstmt.executeQuery()) {
                 myCards = makeCard(result);
             } catch (SQLException e) {
-                e.printStackTrace(System.out);
+                e.printStackTrace(System.err);
             }
         } catch (SQLException e) {
-            e.printStackTrace(System.out);
+            e.printStackTrace(System.err);
         }
 
         return myCards;
