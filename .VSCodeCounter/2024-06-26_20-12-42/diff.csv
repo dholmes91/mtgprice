@@ -1,0 +1,13 @@
+"filename", "language", "HTML", "Java Properties", "JavaScript", "CSS", "Java", "comment", "blank", "total"
+"e:\java class\IdeaProjects\mtgprice\src\main\mtgprice\css\style.css", "CSS", 0, 0, 0, 60, 0, 23, 25, 108
+"e:\java class\IdeaProjects\mtgprice\src\main\mtgprice\index.html", "HTML", 39, 0, 0, 0, 0, 5, 15, 59
+"e:\java class\IdeaProjects\mtgprice\src\main\mtgprice\js\card.js", "JavaScript", 0, 0, 33, 0, 0, 0, 2, 35
+"e:\java class\IdeaProjects\mtgprice\src\main\mtgprice\js\searchController.js", "JavaScript", 0, 0, 101, 0, 0, 0, 12, 113
+"e:\java class\IdeaProjects\mtgprice\src\main\mtgprice\main.html", "HTML", 71, 0, 0, 0, 0, 3, 16, 90
+"e:\java class\IdeaProjects\mtgprice\src\main\mtgprice\search.html", "HTML", 92, 0, 0, 0, 0, 2, 8, 102
+"e:\java class\IdeaProjects\mtgprice\src\main\mtgprice\stack.html", "HTML", 86, 0, 0, 0, 0, 2, 11, 99
+"e:\java class\IdeaProjects\mtgprice\src\main\mtgprice\topmovers.html", "HTML", 60, 0, 0, 0, 0, 2, 10, 72
+"e:\java class\IdeaProjects\mtgprice\src\main\mtgprice\watchlist.html", "HTML", 61, 0, 0, 0, 0, 2, 5, 68
+"e:\java class\IdeaProjects\mtgprice\src\main\resources\application.properties", "Java Properties", 0, 1, 0, 0, 0, 0, 1, 2
+"e:\java class\IdeaProjects\mtgprice\src\test\java\com\aca\mtgprice\MtgPriceApplicationTests.java", "Java", 0, 0, 0, 0, 9, 0, 5, 14
+"Total", "-", 409, 1, 134, 60, 9, 39, 110, 762

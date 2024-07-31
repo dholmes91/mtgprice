@@ -1,0 +1,28 @@
+"filename", "language", "HTML", "Java Properties", "JavaScript", "CSS", "Java", "comment", "blank", "total"
+"e:\java class\IdeaProjects\mtgprice\src\main\java\com\aca\mtgprice\controller\CardController.java", "Java", 0, 0, 0, 0, 54, 0, 19, 73
+"e:\java class\IdeaProjects\mtgprice\src\main\java\com\aca\mtgprice\controller\ExceptionHandlerController.java", "Java", 0, 0, 0, 0, 18, 0, 8, 26
+"e:\java class\IdeaProjects\mtgprice\src\main\java\com\aca\mtgprice\controller\MtgPriceApplication.java", "Java", 0, 0, 0, 0, 9, 0, 5, 14
+"e:\java class\IdeaProjects\mtgprice\src\main\java\com\aca\mtgprice\dao\CardDao.java", "Java", 0, 0, 0, 0, 18, 0, 15, 33
+"e:\java class\IdeaProjects\mtgprice\src\main\java\com\aca\mtgprice\dao\CardDaoImpl.java", "Java", 0, 0, 0, 0, 396, 0, 47, 443
+"e:\java class\IdeaProjects\mtgprice\src\main\java\com\aca\mtgprice\dao\CardDaoMock.java", "Java", 0, 0, 0, 0, 121, 0, 21, 142
+"e:\java class\IdeaProjects\mtgprice\src\main\java\com\aca\mtgprice\dao\MariaDbUtil.java", "Java", 0, 0, 0, 0, 27, 0, 8, 35
+"e:\java class\IdeaProjects\mtgprice\src\main\java\com\aca\mtgprice\model\Card.java", "Java", 0, 0, 0, 0, 80, 0, 24, 104
+"e:\java class\IdeaProjects\mtgprice\src\main\java\com\aca\mtgprice\model\CardException.java", "Java", 0, 0, 0, 0, 6, 0, 2, 8
+"e:\java class\IdeaProjects\mtgprice\src\main\java\com\aca\mtgprice\model\Code.java", "Java", 0, 0, 0, 0, 14, 0, 5, 19
+"e:\java class\IdeaProjects\mtgprice\src\main\java\com\aca\mtgprice\model\ExceptionResponse.java", "Java", 0, 0, 0, 0, 17, 0, 6, 23
+"e:\java class\IdeaProjects\mtgprice\src\main\java\com\aca\mtgprice\model\Rarity.java", "Java", 0, 0, 0, 0, 14, 0, 5, 19
+"e:\java class\IdeaProjects\mtgprice\src\main\java\com\aca\mtgprice\model\Type.java", "Java", 0, 0, 0, 0, 31, 2, 10, 43
+"e:\java class\IdeaProjects\mtgprice\src\main\java\com\aca\mtgprice\service\CardService.java", "Java", 0, 0, 0, 0, 41, 0, 16, 57
+"e:\java class\IdeaProjects\mtgprice\src\main\java\com\aca\mtgprice\util\DbConfig.java", "Java", 0, 0, 0, 0, 26, 0, 7, 33
+"e:\java class\IdeaProjects\mtgprice\src\main\mtgprice\css\style.css", "CSS", 0, 0, 0, 60, 0, 23, 25, 108
+"e:\java class\IdeaProjects\mtgprice\src\main\mtgprice\index.html", "HTML", 39, 0, 0, 0, 0, 5, 15, 59
+"e:\java class\IdeaProjects\mtgprice\src\main\mtgprice\js\card.js", "JavaScript", 0, 0, 33, 0, 0, 0, 2, 35
+"e:\java class\IdeaProjects\mtgprice\src\main\mtgprice\js\searchController.js", "JavaScript", 0, 0, 101, 0, 0, 0, 12, 113
+"e:\java class\IdeaProjects\mtgprice\src\main\mtgprice\main.html", "HTML", 71, 0, 0, 0, 0, 3, 16, 90
+"e:\java class\IdeaProjects\mtgprice\src\main\mtgprice\search.html", "HTML", 92, 0, 0, 0, 0, 2, 8, 102
+"e:\java class\IdeaProjects\mtgprice\src\main\mtgprice\stack.html", "HTML", 86, 0, 0, 0, 0, 2, 11, 99
+"e:\java class\IdeaProjects\mtgprice\src\main\mtgprice\topmovers.html", "HTML", 60, 0, 0, 0, 0, 2, 10, 72
+"e:\java class\IdeaProjects\mtgprice\src\main\mtgprice\watchlist.html", "HTML", 61, 0, 0, 0, 0, 2, 5, 68
+"e:\java class\IdeaProjects\mtgprice\src\main\resources\application.properties", "Java Properties", 0, 1, 0, 0, 0, 0, 1, 2
+"e:\java class\IdeaProjects\mtgprice\src\test\java\com\aca\mtgprice\MtgPriceApplicationTests.java", "Java", 0, 0, 0, 0, 9, 0, 5, 14
+"Total", "-", 409, 1, 134, 60, 881, 41, 308, 1834

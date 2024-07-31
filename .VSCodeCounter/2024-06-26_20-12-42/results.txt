@@ -1,0 +1,74 @@
+Date : 2024-06-26 20:12:42
+Directory : e:\java class\IdeaProjects\mtgprice\src
+Total : 26 files,  1485 codes, 41 comments, 308 blanks, all 1834 lines
+
+Languages
++-----------------+------------+------------+------------+------------+------------+
+| language        | files      | code       | comment    | blank      | total      |
++-----------------+------------+------------+------------+------------+------------+
+| Java            |         16 |        881 |          2 |        203 |      1,086 |
+| HTML            |          6 |        409 |         16 |         65 |        490 |
+| JavaScript      |          2 |        134 |          0 |         14 |        148 |
+| CSS             |          1 |         60 |         23 |         25 |        108 |
+| Java Properties |          1 |          1 |          0 |          1 |          2 |
++-----------------+------------+------------+------------+------------+------------+
+
+Directories
++---------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                          | files      | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                             |         26 |      1,485 |         41 |        308 |      1,834 |
+| main                                                                                                          |         25 |      1,476 |         41 |        303 |      1,820 |
+| main\java                                                                                                     |         15 |        872 |          2 |        198 |      1,072 |
+| main\java\com                                                                                                 |         15 |        872 |          2 |        198 |      1,072 |
+| main\java\com\aca                                                                                             |         15 |        872 |          2 |        198 |      1,072 |
+| main\java\com\aca\mtgprice                                                                                    |         15 |        872 |          2 |        198 |      1,072 |
+| main\java\com\aca\mtgprice\controller                                                                         |          3 |         81 |          0 |         32 |        113 |
+| main\java\com\aca\mtgprice\dao                                                                                |          4 |        562 |          0 |         91 |        653 |
+| main\java\com\aca\mtgprice\model                                                                              |          6 |        162 |          2 |         52 |        216 |
+| main\java\com\aca\mtgprice\service                                                                            |          1 |         41 |          0 |         16 |         57 |
+| main\java\com\aca\mtgprice\util                                                                               |          1 |         26 |          0 |          7 |         33 |
+| main\mtgprice                                                                                                 |          9 |        603 |         39 |        104 |        746 |
+| main\mtgprice (Files)                                                                                         |          6 |        409 |         16 |         65 |        490 |
+| main\mtgprice\css                                                                                             |          1 |         60 |         23 |         25 |        108 |
+| main\mtgprice\js                                                                                              |          2 |        134 |          0 |         14 |        148 |
+| main\resources                                                                                                |          1 |          1 |          0 |          1 |          2 |
+| test                                                                                                          |          1 |          9 |          0 |          5 |         14 |
+| test\java                                                                                                     |          1 |          9 |          0 |          5 |         14 |
+| test\java\com                                                                                                 |          1 |          9 |          0 |          5 |         14 |
+| test\java\com\aca                                                                                             |          1 |          9 |          0 |          5 |         14 |
+| test\java\com\aca\mtgprice                                                                                    |          1 |          9 |          0 |          5 |         14 |
++---------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++---------------------------------------------------------------------------------------------------------------+-----------------+------------+------------+------------+------------+
+| filename                                                                                                      | language        | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------------------------------------------+-----------------+------------+------------+------------+------------+
+| e:\java class\IdeaProjects\mtgprice\src\main\java\com\aca\mtgprice\controller\CardController.java             | Java            |         54 |          0 |         19 |         73 |
+| e:\java class\IdeaProjects\mtgprice\src\main\java\com\aca\mtgprice\controller\ExceptionHandlerController.java | Java            |         18 |          0 |          8 |         26 |
+| e:\java class\IdeaProjects\mtgprice\src\main\java\com\aca\mtgprice\controller\MtgPriceApplication.java        | Java            |          9 |          0 |          5 |         14 |
+| e:\java class\IdeaProjects\mtgprice\src\main\java\com\aca\mtgprice\dao\CardDao.java                           | Java            |         18 |          0 |         15 |         33 |
+| e:\java class\IdeaProjects\mtgprice\src\main\java\com\aca\mtgprice\dao\CardDaoImpl.java                       | Java            |        396 |          0 |         47 |        443 |
+| e:\java class\IdeaProjects\mtgprice\src\main\java\com\aca\mtgprice\dao\CardDaoMock.java                       | Java            |        121 |          0 |         21 |        142 |
+| e:\java class\IdeaProjects\mtgprice\src\main\java\com\aca\mtgprice\dao\MariaDbUtil.java                       | Java            |         27 |          0 |          8 |         35 |
+| e:\java class\IdeaProjects\mtgprice\src\main\java\com\aca\mtgprice\model\Card.java                            | Java            |         80 |          0 |         24 |        104 |
+| e:\java class\IdeaProjects\mtgprice\src\main\java\com\aca\mtgprice\model\CardException.java                   | Java            |          6 |          0 |          2 |          8 |
+| e:\java class\IdeaProjects\mtgprice\src\main\java\com\aca\mtgprice\model\Code.java                            | Java            |         14 |          0 |          5 |         19 |
+| e:\java class\IdeaProjects\mtgprice\src\main\java\com\aca\mtgprice\model\ExceptionResponse.java               | Java            |         17 |          0 |          6 |         23 |
+| e:\java class\IdeaProjects\mtgprice\src\main\java\com\aca\mtgprice\model\Rarity.java                          | Java            |         14 |          0 |          5 |         19 |
+| e:\java class\IdeaProjects\mtgprice\src\main\java\com\aca\mtgprice\model\Type.java                            | Java            |         31 |          2 |         10 |         43 |
+| e:\java class\IdeaProjects\mtgprice\src\main\java\com\aca\mtgprice\service\CardService.java                   | Java            |         41 |          0 |         16 |         57 |
+| e:\java class\IdeaProjects\mtgprice\src\main\java\com\aca\mtgprice\util\DbConfig.java                         | Java            |         26 |          0 |          7 |         33 |
+| e:\java class\IdeaProjects\mtgprice\src\main\mtgprice\css\style.css                                           | CSS             |         60 |         23 |         25 |        108 |
+| e:\java class\IdeaProjects\mtgprice\src\main\mtgprice\index.html                                              | HTML            |         39 |          5 |         15 |         59 |
+| e:\java class\IdeaProjects\mtgprice\src\main\mtgprice\js\card.js                                              | JavaScript      |         33 |          0 |          2 |         35 |
+| e:\java class\IdeaProjects\mtgprice\src\main\mtgprice\js\searchController.js                                  | JavaScript      |        101 |          0 |         12 |        113 |
+| e:\java class\IdeaProjects\mtgprice\src\main\mtgprice\main.html                                               | HTML            |         71 |          3 |         16 |         90 |
+| e:\java class\IdeaProjects\mtgprice\src\main\mtgprice\search.html                                             | HTML            |         92 |          2 |          8 |        102 |
+| e:\java class\IdeaProjects\mtgprice\src\main\mtgprice\stack.html                                              | HTML            |         86 |          2 |         11 |         99 |
+| e:\java class\IdeaProjects\mtgprice\src\main\mtgprice\topmovers.html                                          | HTML            |         60 |          2 |         10 |         72 |
+| e:\java class\IdeaProjects\mtgprice\src\main\mtgprice\watchlist.html                                          | HTML            |         61 |          2 |          5 |         68 |
+| e:\java class\IdeaProjects\mtgprice\src\main\resources\application.properties                                 | Java Properties |          1 |          0 |          1 |          2 |
+| e:\java class\IdeaProjects\mtgprice\src\test\java\com\aca\mtgprice\MtgPriceApplicationTests.java              | Java            |          9 |          0 |          5 |         14 |
+| Total                                                                                                         |                 |      1,485 |         41 |        308 |      1,834 |
++---------------------------------------------------------------------------------------------------------------+-----------------+------------+------------+------------+------------+

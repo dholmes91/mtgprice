@@ -135,7 +135,7 @@ public class CardDaoMock implements CardDao {
 
     @Override
     public List<Card> getPurchaseUrl(String urlValue) {
-        // TODO Auto-generated method stub
+
         throw new UnsupportedOperationException("Unimplemented method 'getPurchaseUrl'");
     }
 }

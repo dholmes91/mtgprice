@@ -1,0 +1,50 @@
+Date : 2024-06-26 20:12:42
+Directory : e:\java class\IdeaProjects\mtgprice\src
+Total : 11 files,  613 codes, 39 comments, 110 blanks, all 762 lines
+
+Languages
++-----------------+------------+------------+------------+------------+------------+
+| language        | files      | code       | comment    | blank      | total      |
++-----------------+------------+------------+------------+------------+------------+
+| HTML            |          6 |        409 |         16 |         65 |        490 |
+| JavaScript      |          2 |        134 |          0 |         14 |        148 |
+| CSS             |          1 |         60 |         23 |         25 |        108 |
+| Java            |          1 |          9 |          0 |          5 |         14 |
+| Java Properties |          1 |          1 |          0 |          1 |          2 |
++-----------------+------------+------------+------------+------------+------------+
+
+Directories
++--------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                             | files      | code       | comment    | blank      | total      |
++--------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                |         11 |        613 |         39 |        110 |        762 |
+| main                                                                                             |         10 |        604 |         39 |        105 |        748 |
+| main\mtgprice                                                                                    |          9 |        603 |         39 |        104 |        746 |
+| main\mtgprice (Files)                                                                            |          6 |        409 |         16 |         65 |        490 |
+| main\mtgprice\css                                                                                |          1 |         60 |         23 |         25 |        108 |
+| main\mtgprice\js                                                                                 |          2 |        134 |          0 |         14 |        148 |
+| main\resources                                                                                   |          1 |          1 |          0 |          1 |          2 |
+| test                                                                                             |          1 |          9 |          0 |          5 |         14 |
+| test\java                                                                                        |          1 |          9 |          0 |          5 |         14 |
+| test\java\com                                                                                    |          1 |          9 |          0 |          5 |         14 |
+| test\java\com\aca                                                                                |          1 |          9 |          0 |          5 |         14 |
+| test\java\com\aca\mtgprice                                                                       |          1 |          9 |          0 |          5 |         14 |
++--------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++--------------------------------------------------------------------------------------------------+-----------------+------------+------------+------------+------------+
+| filename                                                                                         | language        | code       | comment    | blank      | total      |
++--------------------------------------------------------------------------------------------------+-----------------+------------+------------+------------+------------+
+| e:\java class\IdeaProjects\mtgprice\src\main\mtgprice\css\style.css                              | CSS             |         60 |         23 |         25 |        108 |
+| e:\java class\IdeaProjects\mtgprice\src\main\mtgprice\index.html                                 | HTML            |         39 |          5 |         15 |         59 |
+| e:\java class\IdeaProjects\mtgprice\src\main\mtgprice\js\card.js                                 | JavaScript      |         33 |          0 |          2 |         35 |
+| e:\java class\IdeaProjects\mtgprice\src\main\mtgprice\js\searchController.js                     | JavaScript      |        101 |          0 |         12 |        113 |
+| e:\java class\IdeaProjects\mtgprice\src\main\mtgprice\main.html                                  | HTML            |         71 |          3 |         16 |         90 |
+| e:\java class\IdeaProjects\mtgprice\src\main\mtgprice\search.html                                | HTML            |         92 |          2 |          8 |        102 |
+| e:\java class\IdeaProjects\mtgprice\src\main\mtgprice\stack.html                                 | HTML            |         86 |          2 |         11 |         99 |
+| e:\java class\IdeaProjects\mtgprice\src\main\mtgprice\topmovers.html                             | HTML            |         60 |          2 |         10 |         72 |
+| e:\java class\IdeaProjects\mtgprice\src\main\mtgprice\watchlist.html                             | HTML            |         61 |          2 |          5 |         68 |
+| e:\java class\IdeaProjects\mtgprice\src\main\resources\application.properties                    | Java Properties |          1 |          0 |          1 |          2 |
+| e:\java class\IdeaProjects\mtgprice\src\test\java\com\aca\mtgprice\MtgPriceApplicationTests.java | Java            |          9 |          0 |          5 |         14 |
+| Total                                                                                            |                 |        613 |         39 |        110 |        762 |
++--------------------------------------------------------------------------------------------------+-----------------+------------+------------+------------+------------+
