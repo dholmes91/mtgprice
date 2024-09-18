@@ -18,13 +18,12 @@ public enum Type {
         typeMappings.put("instant", Instant);
         typeMappings.put("sorcery", Sorcery);
         typeMappings.put("basic", Basic);
-        // Add more specific mappings as needed
+
     }
 
     public static Type convertStringToType(String value) {
 
         String lowercaseValue = value.toLowerCase();
-
 
         for (Map.Entry<String, Type> entry : typeMappings.entrySet()) {
             if (lowercaseValue.contains(entry.getKey())) {
@@ -32,7 +31,6 @@ public enum Type {
             }
         }
 
-        // Default conversion using enum valueOf
         try {
             return Type.valueOf(lowercaseValue);
         } catch (IllegalArgumentException e) {
